@@ -31,6 +31,7 @@ angular.module('myApp.home', ['ngRoute'])
                 };
                 //
                 $scope.register = function (user) {
+                    authentication.getInfoAboutThisUser();
                     authentication.registerUser(user)
                         .then(function (registeredUser) {
                             console.log(registeredUser);

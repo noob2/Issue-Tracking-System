@@ -8,19 +8,16 @@ angular.module('myApp.users.authentication', ['ngRoute'])
             function loginUser(user) {
                 var deferred = $q.defer();
 
-                var loginRequest = {
-                    method: 'POST',
-                    url: BASE_URL + 'api/Token',
-                    data: user
-                };
+                var loginUserData = "grant_type=password&username=" + user.username + "&password=" + user.password;
 
-                $http(loginRequest)
+                $http.post(BASE_URL + 'api/Token', loginUserData, {
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                })
                     .then(function (response) {
-                        //sessionStorage.setItem('authorisationToken',response.data._kmd.authtoken);
-                        //sessionStorage.setItem('user',response.data.username);
+                        sessionStorage.setItem('accessToken',response.data.access_token);
                         console.log(response.data);
                     }, function (err) {
-                        console.log(err);
+                        console.log(err.data.error_description);
                     });
 
                 return deferred.promise;
@@ -37,13 +34,9 @@ angular.module('myApp.users.authentication', ['ngRoute'])
 
                     var deferred = $q.defer();
 
-                    var registerRequest = {
-                        method: 'POST',
-                        url: BASE_URL + 'api/Account/Register',
-                        data: user
-                    };
-
-                    $http(registerRequest)
+                    $http.post(BASE_URL + 'api/Account/Register', user, {
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    })
                         .then(function (response) {
                             //TODO: return msg : user created
                             console.log(response.data);
@@ -55,19 +48,20 @@ angular.module('myApp.users.authentication', ['ngRoute'])
                         });
 
                     return deferred.promise;
-
-
                 } else { // if user data is INVALID
                     //TODO: return msg : invalid data
                     console.log('invalid data')
                 }
+            }
 
-
+            function getInfoAboutThisUser() {
+                
             }
 
             return {
                 registerUser: registerUser,
-                loginUser: loginUser
+                loginUser: loginUser,
+                getInfoAboutThisUser: getInfoAboutThisUser
             }
         }
     ]);
