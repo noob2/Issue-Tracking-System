@@ -12,29 +12,29 @@ angular.module('myApp.home', ['ngRoute'])
     .controller('HomeView', [
         '$scope',
         '$location',
-        //'authenicationService',
-        function ($scope, $location) {
+        'authentication',
+        function ($scope, $location, authentication) {
 
-            if (true
+            if (false
                 //authenicationService.isLogedIn()
             ) {
                 //TODO : view dashboard
             } else {
-                //TODO : view login / register
+                //TODO : view login
 
-                // $scope.login = function (user) {
-                //     authentication.loginUser(user)
-                //         .then(function (loggedInUser) {
-                //             console.log(loggedInUser);
-                //             $location.path('/news-feed');
-                //         })
-                // };
+                $scope.login = function (user) {
+                    authentication.loginUser(user)
+                        .then(function (loggedInUser) {
+                            // console.log(loggedInUser);
+                            // $location.path('/news-feed');
+                        })
+                };
                 //
-                // $scope.register = function (user) {
-                //     authentication.registerUser(user)
-                //         .then(function (registeredUser) {
-                //             console.log(registeredUser);
-                //         })
-                // };
+                $scope.register = function (user) {
+                    authentication.registerUser(user)
+                        .then(function (registeredUser) {
+                            console.log(registeredUser);
+                        })
+                };
             }
         }]);

@@ -3,5 +3,6 @@
 </div>
 
 <div ng-if="!authenicationService.isLoggedIn()">
-    <p>Please log in</p>
+    <div ng-include="'app/home/login.html'"></div>
+    <div ng-include="'app/home/register.html'"></div>
 </div>
