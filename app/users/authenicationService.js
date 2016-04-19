@@ -54,14 +54,9 @@ angular.module('myApp.users.authentication', ['ngRoute'])
                 }
             }
 
-            function getInfoAboutThisUser() {
-                
-            }
-
             return {
                 registerUser: registerUser,
-                loginUser: loginUser,
-                getInfoAboutThisUser: getInfoAboutThisUser
+                loginUser: loginUser
             }
         }
     ]);

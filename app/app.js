@@ -7,7 +7,7 @@ angular.module('myApp', [
     'myApp.view2',
     'myApp.version',
     'myApp.users.authentication',
-    'myApp.users.authorisation'
+    'myApp.users.authorisation',
 
 ]).config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/'});
