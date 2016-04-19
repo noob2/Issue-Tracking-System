@@ -11,9 +11,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="node_modules/angular-ui-notification/dist/angular-ui-notification.min.css">
+
   <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-  <link rel="stylesheet" href="app/bower_components/angular-notifier/dist/angular-notifier.min.css">
-  <script src="app/bower_components/angular-notifier/dist/angular-notifier.min.js"></script>
 </head>
 <body>
   <ul class="menu">
@@ -26,6 +26,14 @@
   <![endif]-->
 
   <div ng-view></div>
+
+  <div lr-notification-stack-container="channelName">
+    <ul>
+      <li ng-class="notification.level" ng-repeat="notification in lrNotifierCtrl.notifications" ng-click="lrNotifierCtrl.removeNotification(notification)">
+        {{notification.message}}
+      </li>
+    </ul>
+  </div>
 
   <div>Angular seed app: v<span app-version></span></div>
 
@@ -45,5 +53,7 @@
   <script src="app/components/version/version.js"></script>
   <script src="app/components/version/version-directive.js"></script>
   <script src="app/components/version/interpolate-filter.js"></script>
+
+  <script src="node_modules/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
 </body>
 </html>

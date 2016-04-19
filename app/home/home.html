@@ -1,8 +1,8 @@
-<div ng-if="authenicationService.isLoggedIn()">
+<div ng-if="isSomeoneLoggedIn">
     <p>Welcome ! you are loged in</p>
 </div>
 
-<div ng-if="!authenicationService.isLoggedIn()">
+<div ng-if="!isSomeoneLoggedIn">
     <div ng-include="'app/home/login.html'"></div>
     <div ng-include="'app/home/register.html'"></div>
 </div>
