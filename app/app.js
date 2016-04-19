@@ -1,12 +1,15 @@
 'use strict';
 
-angular.module('myApp', [
+angular.module('issueTrackingSystem', [
         'ngRoute',
-        'myApp.home',
-        'myApp.view2',
-        'myApp.version',
-        'myApp.users.authentication',
-        'myApp.users.authorisation',
+
+        'issueTrackingSystem.home',
+        'issueTrackingSystem.projects',
+    
+        'issueTrackingSystem.version',
+        'issueTrackingSystem.users.authentication',
+        'issueTrackingSystem.users.authorisation',
+
         'ui-notification'
     ])
     .config(['$routeProvider', function ($routeProvider) {

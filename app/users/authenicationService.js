@@ -1,4 +1,4 @@
-angular.module('myApp.users.authentication', ['ngRoute'])
+angular.module('issueTrackingSystem.users.authentication', ['ngRoute'])
     .factory('authentication', [
         '$http',
         '$q',

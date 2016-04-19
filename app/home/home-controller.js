@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.home', ['ngRoute'])
+angular.module('issueTrackingSystem.home', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
@@ -15,6 +15,8 @@ angular.module('myApp.home', ['ngRoute'])
         'authorisation',
         'Notification',
         function ($scope, authentication, authorisation, Notification) {
+
+            $scope.loading = false;
             authorisation.getThisUser()
                 .then(function (user) {
                     Notification.success('u re loged in!');
@@ -26,7 +28,9 @@ angular.module('myApp.home', ['ngRoute'])
                     $scope.isSomeoneLoggedIn = true;
                 }, function () {
                     Notification.error('u re not loged in');
-                });
+                }).finally(function () {
+                $scope.loading = true;
+            });
 
             $scope.login = function (user) {
                 authentication.loginUser(user)

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.users.authorisation', ['ngRoute'])
+angular.module('issueTrackingSystem.users.authorisation', ['ngRoute'])
     .factory('authorisation', [
         '$http',
         '$q',

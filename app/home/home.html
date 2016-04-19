@@ -1,8 +1,14 @@
-<div ng-if="isSomeoneLoggedIn">
-    <p>Welcome ! you are loged in</p>
+<div ng-hide="loading">
+    <h3>LOADING . . .</h3>
 </div>
 
-<div ng-if="!isSomeoneLoggedIn">
-    <div ng-include="'app/home/login.html'"></div>
-    <div ng-include="'app/home/register.html'"></div>
+<div ng-show="loading">
+    <div ng-if="isSomeoneLoggedIn" >
+        <div ng-include="'app/home/dashboard.html'"></div>
+    </div>
+
+    <div ng-if="!isSomeoneLoggedIn" ng-cloak>
+        <div ng-include="'app/home/login.html'"></div>
+        <div ng-include="'app/home/register.html'"></div>
+    </div>
 </div>
