@@ -28,5 +28,24 @@
 }
 
 .project-header{
-    display: inline-flex;
+    display: flex;
+}
+.project-header h3{
+    margin: 0 5px;
+}
+
+#addNewProject{
+    background-color: green;
+    border-radius: 12px;
+    border: 1px solid blue;
+    padding: 15px;
+    margin: 0 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 2em;
+}
+
+#pageHeader{
+    background-color: darkseagreen;
+    padding: 10px;
 }

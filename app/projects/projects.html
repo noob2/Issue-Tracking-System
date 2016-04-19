@@ -3,11 +3,11 @@
 </div>
 
 <div ng-show="loading">
-  <p>Projects</p>
+  <p id="pageHeader">Projects</p>
   <ul>
-    <li><h3 class="project-header">Project 1</h3><button class="view">View</button></li>
-    <li><h3 class="project-header">Project 2</h3><button class="view">View</button></li>
-    <li><h3 class="project-header">Project 3</h3><button class="view">View</button></li>
+    <li class="project-header"><h3 >Project 1</h3><button class="view">View</button></li>
+    <li class="project-header"><h3 >Project 2</h3><button class="view">View</button></li>
+    <li class="project-header"><h3 >Project 3</h3><button class="view">View</button></li>
   </ul>
-  <button type="button" id="addNewProject">Add Issue</button>
+  <a href="#/projects/add" id="addNewProject">Add New Project</a>
 </div>

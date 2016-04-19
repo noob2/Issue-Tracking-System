@@ -4,11 +4,14 @@ angular.module('issueTrackingSystem', [
         'ngRoute',
 
         'issueTrackingSystem.home',
+    
         'issueTrackingSystem.projects',
+        'issueTrackingSystem.projects.addIssue',
     
         'issueTrackingSystem.version',
         'issueTrackingSystem.users.authentication',
         'issueTrackingSystem.users.authorisation',
+        'issueTrackingSystem.services.issue',
 
         'ui-notification'
     ])
