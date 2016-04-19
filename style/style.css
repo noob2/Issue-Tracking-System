@@ -22,3 +22,11 @@
     color: black;
     font-size: 2em;
 }
+
+.menu a:hover{
+    background-color: lightseagreen;
+}
+
+.project-header{
+    display: inline-flex;
+}

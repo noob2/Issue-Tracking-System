@@ -1,5 +1,13 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div ng-hide="loading">
+  <h3>LOADING . . .</h3>
+</div>
+
+<div ng-show="loading">
+  <p>Projects</p>
+  <ul>
+    <li><h3 class="project-header">Project 1</h3><button class="view">View</button></li>
+    <li><h3 class="project-header">Project 2</h3><button class="view">View</button></li>
+    <li><h3 class="project-header">Project 3</h3><button class="view">View</button></li>
+  </ul>
+  <button type="button" id="addNewProject">Add Issue</button>
+</div>

@@ -14,7 +14,9 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
         'authentication',
         'authorisation',
         'Notification',
-        function ($scope, authentication, authorisation, Notification) {
+        '$location',
+        '$route',
+        function ($scope, authentication, authorisation, Notification,$location, $route) {
 
             $scope.loading = false;
             authorisation.getThisUser()
@@ -37,9 +39,11 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
                     .then(function (response) {
                         sessionStorage.setItem('accessToken',response.data.access_token);
                         Notification.success('you have successfully logged in !');
-                        location.reload();
+                        $route.reload();
                     },function (err) {
                         Notification.error(err.data.error_description);
+                    }).finally(function () {
+
                     })
             };
 
