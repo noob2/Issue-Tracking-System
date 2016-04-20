@@ -27,10 +27,24 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
             function addProject(project) {
                 var deferred = $q.defer();
 
-                $http.post(BASE_URL + 'projects/', project, {
+                var priorities = project.priorities;
+                var prioritiesArray = priorities.split(',');
+
+                var prioritiesString = "";
+                prioritiesArray.forEach(function (priority,i) {
+                    prioritiesString+="&priorities["+i+"].Name=" + priority;
+                });
+
+                var projectData = "Description=" + project.description
+                    + "&LeadId=" + project.leadId
+                    + "&Name=" + project.name
+                    + "&projectKey=" + project.projectKey
+                    + prioritiesString;
+
+                $http.post(BASE_URL + 'projects', projectData, {
                         headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                            "Authorization": "Bearer " + sessionStorage['accessToken']
+                            "Authorization": "Bearer " + sessionStorage['accessToken'],
+                            'Content-Type': 'application/x-www-form-urlencoded'
                         }
                     })
                     .then(function (response) {

@@ -15,12 +15,12 @@
         <input type="text" id="projectKey" ng-model="project.projectKey" />
         <br>
         <label for="projectLeader">projectLeader</label>
-        <select  id="projectLeader" ng-model="project.LeadId">
+        <select  id="projectLeader" ng-model="project.leadId">
             <option  value="{{user.Id}}" ng-repeat="user in users">{{user.Username}}</option>
         </select>
         <br>
         <label for="priorities">Priorities (separated by comma)</label>
-        <input type="text" id="priorities" ng-model="project.priorities.name" />
+        <input type="text" id="priorities" ng-model="project.priorities" />
         <br>
         <button type="button" ng-click="addProject(project)">Add Project</button>
     </form>
