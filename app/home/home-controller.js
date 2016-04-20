@@ -22,9 +22,9 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
             authorisation.getThisUser()
                 .then(function (user) {
                     Notification.success('u re loged in!');
-                    sessionStorage['userName'] = user.Username;
-                    sessionStorage['userId'] = user.Id;
-                    sessionStorage['isAdmin'] = user.isAdmin;
+                    sessionStorage['userName'] = user.data.Username;
+                    sessionStorage['userId'] = user.data.Id;
+                    sessionStorage['isAdmin'] = user.data.isAdmin;
                     $scope.user = user;
                     $scope.username = user.username;
                     $scope.isSomeoneLoggedIn = true;

@@ -24,10 +24,10 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
                 return deferred.promise;
             }
 
-            function add(issue) {
+            function addProject(project) {
                 var deferred = $q.defer();
 
-                $http.post(BASE_URL + 'projects/', issue, {
+                $http.post(BASE_URL + 'projects/', project, {
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
                             "Authorization": "Bearer " + sessionStorage['accessToken']
@@ -44,6 +44,6 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
 
             return {
                 allProjects: allProjects,
-                add: add
+                addProject: addProject
             }
         }]);
