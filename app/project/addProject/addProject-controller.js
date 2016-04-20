@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module('issueTrackingSystem.projects', ['ngRoute'])
+angular.module('issueTrackingSystem.project.addProject', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/projects', {
-            templateUrl: 'app/projects/projects.html',
+        $routeProvider.when('/project/add', {
+            templateUrl: 'app/project/addProject/addProject.html',
             controller: 'projects'
         });
     }])
@@ -15,7 +15,8 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
         'authorisation',
         'Notification',
         '$location',
-        function ($scope, authentication, authorisation, Notification, $location) {
+        'project',
+        function ($scope, authentication, authorisation, Notification, $location, project) {
 
             $scope.loading = false;
             authorisation.getThisUser()
@@ -33,4 +34,16 @@ angular.module('issueTrackingSystem.projects', ['ngRoute'])
                 }).finally(function () {
                 $scope.loading = true;
             });
+
+            $scope.addIssue = function (pr) {
+                project.add(pr)
+                    .then(function (response) {
+                        Notification.success('you have successfully added an issue in !');
+                        $route.reload();
+                    },function (err) {
+                        Notification.error('error'+err.data.error_description);
+                    }).finally(function () {
+            
+                })
+            };
         }]);

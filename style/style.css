@@ -29,6 +29,7 @@
 
 .project-header{
     display: flex;
+    margin: 10px;
 }
 .project-header h3{
     margin: 0 5px;
@@ -48,4 +49,12 @@
 #pageHeader{
     background-color: darkseagreen;
     padding: 10px;
+}
+
+.viewButton{
+    background-color: lightblue;
+    border-radius: 9px;
+    color: whitesmoke;
+    border-color: gray;
+    padding: 0px 10px;
 }

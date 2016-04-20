@@ -5,13 +5,13 @@ angular.module('issueTrackingSystem', [
 
         'issueTrackingSystem.home',
     
-        'issueTrackingSystem.projects',
-        'issueTrackingSystem.projects.addIssue',
+        'issueTrackingSystem.project.projectController',
+        'issueTrackingSystem.project.projectsFactory',
+        'issueTrackingSystem.project.addProject',
     
         'issueTrackingSystem.version',
         'issueTrackingSystem.users.authentication',
         'issueTrackingSystem.users.authorisation',
-        'issueTrackingSystem.services.issue',
 
         'ui-notification'
     ])

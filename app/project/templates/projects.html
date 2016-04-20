@@ -1,0 +1,15 @@
+<div ng-hide="loading">
+  <h3>LOADING . . .</h3>
+</div>
+
+<div ng-show="loading">
+  <p id="pageHeader">Projects</p>
+  <ul>
+    <li class="project-header" ng-repeat="project in projects">
+      <h3>{{project.Name}}</h3>
+      <button class="viewButton">View</button>
+    </li>
+  </ul>
+  <a href="#/projects/add" id="addNewProject">Add New Project</a>
+  <p>{{allProjects}}</p>
+</div>

@@ -16,7 +16,7 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
         'Notification',
         '$location',
         '$route',
-        function ($scope, authentication, authorisation, Notification,$location, $route) {
+        function ($scope, authentication, authorisation, Notification, $location, $route) {
 
             $scope.loading = false;
             authorisation.getThisUser()
@@ -37,14 +37,14 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
             $scope.login = function (user) {
                 authentication.loginUser(user)
                     .then(function (response) {
-                        sessionStorage.setItem('accessToken',response.data.access_token);
+                        sessionStorage.setItem('accessToken', response.data.access_token);
                         Notification.success('you have successfully logged in !');
                         $route.reload();
-                    },function (err) {
+                    }, function (err) {
                         Notification.error(err.data.error_description);
                     }).finally(function () {
 
-                    })
+                })
             };
 
             $scope.register = function (user) {
@@ -54,12 +54,12 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
                 // if user data is VALID
                 if (emailRegexPattern.test(user.email) && user.password === user.confirmPassword && user.password.length >= 6) {
 
-                authentication.registerUser(user)
-                    .then(function () {
-                        Notification.success('u have successfully registered!');
-                    },function (err) {
-                        Notification.error(err.data.ModelState[""][0]);
-                    })
+                    authentication.registerUser(user)
+                        .then(function () {
+                            Notification.success('u have successfully registered!');
+                        }, function (err) {
+                            Notification.error(err.data.ModelState[""][0]);
+                        })
 
                 } else { // if user data is INVALID
                     Notification.error('invalid data');
