@@ -11,6 +11,10 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
             templateUrl: 'app/project/templates/addProject.html',
             controller: 'projectsController'
         });
+        $routeProvider.when('/projects/:id', {
+            templateUrl: 'app/project/templates/projectPage.html',
+            controller: 'projectsController'
+        });
     }])
 
     .controller('projectsController', [
@@ -21,7 +25,8 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
         '$location',
         'projectFactory',
         'userFactory',
-        function ($scope, authentication, authorisation, Notification, $location, projectFactory, userFactory) {
+        '$routeParams',
+        function ($scope, authentication, authorisation, Notification, $location, projectFactory, userFactory, $routeParams) {
 
             authorisation.getThisUser()
                 .then(function () {
@@ -59,6 +64,24 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
                         
                             })
                         };
+                    }
+
+                    else if($location.path().match('projects\/[0-9]+')){
+                        projectFactory.getProject($routeParams.id)
+                            .then(function (project) {
+                                $scope.project = project;
+
+                                userFactory.getAllUsers()
+                                    .then(function (allUsers) {
+                                        $scope.users = allUsers;
+                                        $scope.loading = true;
+                                    });
+
+                            },function (err) {
+                                console.log(err);
+                            }).finally(function () {
+                            $scope.loading = true;
+                        });
                     }
 
                 }, function () {

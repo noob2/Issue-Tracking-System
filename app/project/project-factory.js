@@ -24,6 +24,23 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
                 return deferred.promise;
             }
 
+            function getProject(id) {
+                var deferred = $q.defer();
+
+                $http.get(BASE_URL + 'projects/' + id, {
+                        headers: {
+                            "Authorization": "Bearer " + sessionStorage['accessToken']
+                        }
+                    })
+                    .then(function (response) {
+                        deferred.resolve(response.data)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
+
+                return deferred.promise;
+            }
+
             function addProject(project) {
                 var deferred = $q.defer();
 
@@ -31,8 +48,8 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
                 var prioritiesArray = priorities.split(',');
 
                 var prioritiesString = "";
-                prioritiesArray.forEach(function (priority,i) {
-                    prioritiesString+="&priorities["+i+"].Name=" + priority;
+                prioritiesArray.forEach(function (priority, i) {
+                    prioritiesString += "&priorities[" + i + "].Name=" + priority;
                 });
 
                 var projectData = "Description=" + project.description
@@ -58,6 +75,7 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
 
             return {
                 allProjects: allProjects,
-                addProject: addProject
+                addProject: addProject,
+                getProject: getProject
             }
         }]);

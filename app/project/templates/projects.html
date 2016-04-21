@@ -7,7 +7,7 @@
   <ul>
     <li class="project-header" ng-repeat="project in projects">
       <h3>{{project.Name}}</h3>
-      <button class="viewButton">View</button>
+      <button class="viewButton"><a href="#/projects/{{project.Id}}">View</a></button>
     </li>
   </ul>
   <a href="#/projects/add" id="addNewProject">Add New Project</a>
