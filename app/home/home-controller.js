@@ -18,21 +18,8 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
         '$route',
         function ($scope, authentication, authorisation, Notification, $location, $route) {
 
-            $scope.loading = false;
-            authorisation.getThisUser()
-                .then(function (user) {
-                    Notification.success('u re loged in!');
-                    sessionStorage['userName'] = user.data.Username;
-                    sessionStorage['userId'] = user.data.Id;
-                    sessionStorage['isAdmin'] = user.data.isAdmin;
-                    $scope.user = user;
-                    $scope.username = user.username;
-                    $scope.isSomeoneLoggedIn = true;
-                }, function () {
-                    Notification.error('u re not loged in');
-                }).finally(function () {
-                $scope.loading = true;
-            });
+            $scope.isSomeoneLoggedIn = true;
+            $scope.loading = true;
 
             $scope.login = function (user) {
                 authentication.loginUser(user)
@@ -65,5 +52,4 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
                     Notification.error('invalid data');
                 }
             };
-
         }]);

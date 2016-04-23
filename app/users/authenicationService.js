@@ -3,11 +3,14 @@ angular.module('issueTrackingSystem.users.authentication', ['ngRoute'])
         '$http',
         '$q',
         'BASE_URL',
-        function ($http, $q, BASE_URL) {
+        'authorisation',
+        'Notification',
+        function ($http, $q, BASE_URL, authorisation , Notification) {
 
             function loginUser(user) {
                 var deferred = $q.defer();
                 var loginUserData = "grant_type=password&username=" + user.username + "&password=" + user.password;
+
                 $http.post(BASE_URL + 'api/Token', loginUserData, {
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                 }).then(function (response) {
@@ -34,14 +37,29 @@ angular.module('issueTrackingSystem.users.authentication', ['ngRoute'])
             }
 
             function isLoggedIn() {
-                //return !sessionStorage['accessToken'];
-                return false;
+                return !!sessionStorage['accessToken'];
+            }
+            
+            function refreshUser() {
+                if (isLoggedIn()) {
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + sessionStorage['accessToken'];
+                    authorisation.getThisUser()
+                        .then(function (user) {
+                            Notification.success('u re loged in!');
+                            sessionStorage['userName'] = user.data.Username;
+                            sessionStorage['userId'] = user.data.Id;
+                            sessionStorage['isAdmin'] = user.data.isAdmin;
+                        }, function () {
+                            Notification.error('u re not loged in');
+                        });
+                }
             }
 
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
-                isLoggedIn: isLoggedIn
+                isLoggedIn: isLoggedIn,
+                refreshUser: refreshUser
             }
         }
     ]);

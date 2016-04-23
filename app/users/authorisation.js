@@ -9,10 +9,7 @@ angular.module('issueTrackingSystem.users.authorisation', ['ngRoute'])
 
             function getThisUser() {
                 var deferred = $q.defer();
-
-                $http.get(BASE_URL + 'Users/me', {
-                        headers: {"Authorization": "Bearer " + sessionStorage['accessToken']}
-                    })
+                $http.get(BASE_URL + 'Users/me')
                     .then(function (response) {
                         deferred.resolve(response)
                     }, function (err) {
