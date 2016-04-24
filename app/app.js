@@ -2,50 +2,70 @@
 
 angular.module('issueTrackingSystem', [
         'ngRoute',
-
         'issueTrackingSystem.home',
 
         'issueTrackingSystem.project.projectController',
         'issueTrackingSystem.project.projectsFactory',
 
         'issueTrackingSystem.version',
-    
+
         'issueTrackingSystem.users.authentication',
         'issueTrackingSystem.users.authorisation',
-        'issueTrackingSystem.users.userFactory',
-
-        'ui-notification'
+        'issueTrackingSystem.users.userFactory'
     ])
 
-    .config(['$routeProvider','$httpProvider', function ($routeProvider , $httpProvider) {
+    .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.otherwise({redirectTo: '/'});
 
-    //     $httpProvider.interceptors.push(['$q', function($q) {
-    //         return {
-    //             'responseError': function(rejection) {
-    //                 if (rejection.data && rejection.data['error_description']) {
-    //                     console.log(error(rejection.data['error_description']));
-    //                 }
-    //                 else if (rejection.data && rejection.data.modelState && rejection.data.modelState['']){
-    //                     var errors = rejection.data.modelState[''];
-    //                     if (errors.length > 0) {
-    //                         console.log(error(errors[0]));
-    //                     }
-    //                 }
-    //
-    //                 return $q.reject(rejection);
-    //             }
-    //         }
-    //     }]);
-    }])
-    
-    .run(['$rootScope', '$location', 'authentication', function($rootScope, $location, authentication) {
+        $httpProvider.interceptors.push(['$q', function ($q) {
+            return {
+                'request': function (response) {
+                    //console.log(response);
+                    //     if(response.statusText && response.statusText === 'OK'){
+                    //     toastr.error('U re loged in');
+                    // }
+                    return response;
+                },
+                'response': function (response) {
+                    if (response.data.access_token) {
+                        toastr.error('U re loged in');
+                    }
+                    return response;
+                },
+                'requestError': function (rejection) {
+                },
+                'responseError': function (rejection) {
+                    if (rejection.data && rejection.data['error_description']) {
+                        toastr.error(rejection.data['error_description']);
+                    }
+                    else if (rejection.data && rejection.data.modelState && rejection.data.modelState['']) {
+                        toastr.error(rejection.data.modelState['']);
+                    }
+                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.Password']) {
+                        toastr.error(rejection.data.ModelState['model.Password']);
+                    }
+                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.ConfirmPassword']) {
+                        toastr.error(rejection.data.ModelState['model.ConfirmPassword']);
+                    }
+                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.']) {
+                        toastr.error(rejection.data.ModelState['model[""]']);
+                    }
 
-        $rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
+                    return $q.reject(rejection);
+                }
+
+            }
+        }]);
+    }])
+
+    .run(['$rootScope', '$location', function ($rootScope, $location) {
+
+        $rootScope.$on('$routeChangeError', function (ev, current, previous, rejection) {
             if (rejection === 'Unauthorized Access') {
                 $location.path('/');
             }
         });
-
     }])
+    .constant('jQuery', $)
+    .constant('toastr', toastr)
     .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/');

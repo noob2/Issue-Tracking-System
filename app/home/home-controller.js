@@ -13,22 +13,19 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
         '$scope',
         'authentication',
         'authorisation',
-        'Notification',
         '$location',
         '$route',
-        function ($scope, authentication, authorisation, Notification, $location, $route) {
-
-            $scope.isSomeoneLoggedIn = true;
-            $scope.loading = true;
-
+        function ($scope, authentication, authorisation, $location, $route) {
+            $scope.isSomeoneLoggedIn = authentication.isLoggedIn();
+            
             $scope.login = function (user) {
                 authentication.loginUser(user)
                     .then(function (response) {
                         sessionStorage.setItem('accessToken', response.data.access_token);
-                        Notification.success('you have successfully logged in !');
+                        //Notification.success('you have successfully logged in !');
                         $route.reload();
                     }, function (err) {
-                        Notification.error(err.data.error_description);
+                        //Notification.error(err.data.error_description);
                     }).finally(function () {
 
                 })
@@ -36,20 +33,12 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
 
             $scope.register = function (user) {
 
-                var emailRegexPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-                // if user data is VALID
-                if (emailRegexPattern.test(user.email) && user.password === user.confirmPassword && user.password.length >= 6) {
-
                     authentication.registerUser(user)
                         .then(function () {
-                            Notification.success('u have successfully registered!');
+                           // Notification.success('u have successfully registered!');
                         }, function (err) {
-                            Notification.error(err.data.ModelState[""][0]);
+                            //Notification.error(err.data.ModelState[""][0]);
                         })
 
-                } else { // if user data is INVALID
-                    Notification.error('invalid data');
-                }
             };
         }]);

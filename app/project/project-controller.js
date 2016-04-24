@@ -32,20 +32,19 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
     .controller('projectsController', [
         '$scope',
         'authentication',
-        'Notification',
         '$location',
         'projectFactory',
         'userFactory',
         '$routeParams',
-        function ($scope, authentication, Notification, $location, projectFactory, userFactory, $routeParams) {
+        function ($scope, authentication, $location, projectFactory, userFactory, $routeParams) {
 
             if ($location.path() == '/projects') {
                 projectFactory.allProjects()
                     .then(function (projects) {
                         $scope.projects = projects;
-                        Notification.success('all projects loaded!');
+                        //Notification.success('all projects loaded!');
                     }, function (err) {
-                        Notification.error('unable to load all projects' + err);
+                       // Notification.error('unable to load all projects' + err);
                     })
                     .finally(function () {
                         $scope.loading = true;
@@ -63,10 +62,10 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
                 $scope.addProject = function (project) {
                     projectFactory.addProject(project)
                         .then(function (response) {
-                            Notification.success('you have successfully added an project in !');
+                            //Notification.success('you have successfully added an project in !');
                             $route.reload();
                         }, function (err) {
-                            Notification.error(err.data.Message);
+                            //Notification.error(err.data.Message);
                             console.log(err)
                         }).finally(function () {
 

@@ -4,8 +4,7 @@ angular.module('issueTrackingSystem.users.authentication', ['ngRoute'])
         '$q',
         'BASE_URL',
         'authorisation',
-        'Notification',
-        function ($http, $q, BASE_URL, authorisation , Notification) {
+        function ($http, $q, BASE_URL, authorisation) {
 
             function loginUser(user) {
                 var deferred = $q.defer();
@@ -45,12 +44,12 @@ angular.module('issueTrackingSystem.users.authentication', ['ngRoute'])
                     $http.defaults.headers.common.Authorization = 'Bearer ' + sessionStorage['accessToken'];
                     authorisation.getThisUser()
                         .then(function (user) {
-                            Notification.success('u re loged in!');
+                            //Notification.success('u re loged in!');
                             sessionStorage['userName'] = user.data.Username;
                             sessionStorage['userId'] = user.data.Id;
                             sessionStorage['isAdmin'] = user.data.isAdmin;
                         }, function () {
-                            Notification.error('u re not loged in');
+                            //Notification.error('u re not loged in');
                         });
                 }
             }
