@@ -17,7 +17,7 @@ angular.module('issueTrackingSystem', [
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.otherwise({redirectTo: '/'});
 
-        $httpProvider.interceptors.push(['$q', function ($q) {
+        $httpProvider.interceptors.push(['$q', 'toastr', function ($q, toastr) {
             return {
                 'request': function (response) {
                     //console.log(response);
@@ -28,7 +28,7 @@ angular.module('issueTrackingSystem', [
                 },
                 'response': function (response) {
                     if (response.data.access_token) {
-                        toastr.error('U re loged in');
+                        toastr.success('U re loged in');
                     }
                     return response;
                 },
@@ -37,6 +37,9 @@ angular.module('issueTrackingSystem', [
                 'responseError': function (rejection) {
                     if (rejection.data && rejection.data['error_description']) {
                         toastr.error(rejection.data['error_description']);
+                    }
+                    else if (rejection === 'Unauthorized Access') {
+                        toastr.error(rejection);
                     }
                     else if (rejection.data && rejection.data.modelState && rejection.data.modelState['']) {
                         toastr.error(rejection.data.modelState['']);
@@ -47,21 +50,20 @@ angular.module('issueTrackingSystem', [
                     else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.ConfirmPassword']) {
                         toastr.error(rejection.data.ModelState['model.ConfirmPassword']);
                     }
-                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.']) {
-                        toastr.error(rejection.data.ModelState['model[""]']);
+                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState[""][0]) {
+                        toastr.error(rejection.data.ModelState[""][0]);
                     }
-
                     return $q.reject(rejection);
                 }
-
             }
         }]);
     }])
 
-    .run(['$rootScope', '$location', function ($rootScope, $location) {
+    .run(['$rootScope', '$location', 'toastr', function ($rootScope, $location, toastr) {
 
         $rootScope.$on('$routeChangeError', function (ev, current, previous, rejection) {
             if (rejection === 'Unauthorized Access') {
+                toastr.error(rejection);
                 $location.path('/');
             }
         });

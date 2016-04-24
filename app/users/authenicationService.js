@@ -38,27 +38,11 @@ angular.module('issueTrackingSystem.users.authentication', ['ngRoute'])
             function isLoggedIn() {
                 return !!sessionStorage['accessToken'];
             }
-            
-            function refreshUser() {
-                if (isLoggedIn()) {
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + sessionStorage['accessToken'];
-                    authorisation.getThisUser()
-                        .then(function (user) {
-                            //Notification.success('u re loged in!');
-                            sessionStorage['userName'] = user.data.Username;
-                            sessionStorage['userId'] = user.data.Id;
-                            sessionStorage['isAdmin'] = user.data.isAdmin;
-                        }, function () {
-                            //Notification.error('u re not loged in');
-                        });
-                }
-            }
 
             return {
                 registerUser: registerUser,
                 loginUser: loginUser,
-                isLoggedIn: isLoggedIn,
-                refreshUser: refreshUser
+                isLoggedIn: isLoggedIn
             }
         }
     ]);
