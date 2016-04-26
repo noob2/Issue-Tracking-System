@@ -5,8 +5,38 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
         '$http',
         '$q',
         'BASE_URL',
-        function ($http, $q, BASE_URL) {
+        '$routeParams',
+        function ($http, $q, BASE_URL, $routeParams) {
+            function stringifyPriorities(priorities) {
+                if(priorities === undefined){
+                    return "";
+                }
 
+                var prioritiesArray = priorities.split(',');
+                var prioritiesOutputString = "";
+                prioritiesArray.forEach(function (priority, i) {
+                    if (priority.trim() !== "") {
+                        prioritiesOutputString += "&priorities[" + i + "].Name=" + priority.trim();
+                    }
+                });
+                return prioritiesOutputString;
+            }
+
+            function stringifyLabels(labels) {
+                if(labels === undefined){
+                    return "";
+                }
+
+                var labelsArray = labels.split(',');
+                var labelsOutputString = "";
+                labelsArray.forEach(function (label, i) {
+                    if (label.trim() !== "") {
+                        labelsOutputString += "&labels[" + i + "].Name=" + label.trim();
+                    }
+                });
+                return labelsOutputString;
+            }
+            
             function allProjects() {
                 var deferred = $q.defer();
 
@@ -44,19 +74,15 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
             function addProject(project) {
                 var deferred = $q.defer();
 
-                var priorities = project.priorities;
-                var prioritiesArray = priorities.split(',');
-
-                var prioritiesString = "";
-                prioritiesArray.forEach(function (priority, i) {
-                    prioritiesString += "&priorities[" + i + "].Name=" + priority;
-                });
-
+                var prioritiesData = stringifyPriorities(project.priorities);
+                var labelsData = stringifyLabels(project.labels);
+                
                 var projectData = "Description=" + project.description
                     + "&LeadId=" + project.leadId
                     + "&Name=" + project.name
                     + "&projectKey=" + project.projectKey
-                    + prioritiesString;
+                    + prioritiesData
+                    + labelsData;
 
                 $http.post(BASE_URL + 'projects', projectData, {
                         headers: {
@@ -72,10 +98,37 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
 
                 return deferred.promise;
             }
+            
+            function editProject(project) {
+                var deferred = $q.defer();
+                var prioritiesData = stringifyPriorities(project.AllPriorities);
+                var labelsData = stringifyLabels(project.AllLabels);
+
+                var projectData =
+                    "Description=" + project.Description
+                    + "&LeadId=" + project.Lead.Id
+                    + "&Name=" + project.Name
+                    + prioritiesData
+                    + labelsData;
+
+                $http.put(BASE_URL + 'projects/' + $routeParams.id, projectData, {
+                        headers: {
+                            "Authorization": "Bearer " + sessionStorage['accessToken'],
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                    .then(function (response) {
+                        deferred.resolve(response)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
+                return deferred.promise;
+            }
 
             return {
                 allProjects: allProjects,
                 addProject: addProject,
-                getProject: getProject
+                getProject: getProject,
+                editProject: editProject
             }
         }]);

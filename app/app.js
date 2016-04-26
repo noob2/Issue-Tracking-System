@@ -47,12 +47,19 @@ angular.module('issueTrackingSystem', [
                     else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.Password']) {
                         toastr.error(rejection.data.ModelState['model.Password']);
                     }
+                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.Priorities']) {
+                        toastr.error(rejection.data.ModelState['model.Priorities']);
+                    }
                     else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.ConfirmPassword']) {
                         toastr.error(rejection.data.ModelState['model.ConfirmPassword']);
                     }
-                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState[""][0]) {
+                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState[""]) {
                         toastr.error(rejection.data.ModelState[""][0]);
                     }
+                    else if (rejection.data && rejection.data.Message) {
+                        toastr.error(rejection.data.Message);
+                    }
+                    console.log(rejection);
                     return $q.reject(rejection);
                 }
             }

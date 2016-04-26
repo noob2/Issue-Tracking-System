@@ -3,27 +3,31 @@
 </div>
 
 <div ng-show="loading">
-    <p id="pageHeader">Project page</p>
-    <h4>{{project.Name}}</h4>
-    <a href="#" id="a">Edit</a>
-    <a href="#" id="b">Add Issue</a>
-    <p>ProjectKey: {{project.ProjectKey}}</p>
+    <form ng-controller="projectsController">
+        <p id="pageHeader">Project page</p>
+        <h4>{{project.Name}}</h4>
+        <a href="#/projects/{{project.Id}}/edit">Edit</a>
+        <a href="#" id="b">Add Issue</a>
+        <p>ProjectKey: {{project.ProjectKey}}</p>
 
-    <form>
         <label for="name"><b>Name</b></label>
-        <input type="text" id="name" ng-model="project.name" value="{{project.Name}}"/>
+        <input type="text" id="name" ng-model="project.name" ng-value="project.Name"/>
         <br>
+
         <label for="description"><b>Description</b></label>
-        <input type="text" id="description" ng-model="project.description" value="{{project.Description}}"/>
+        <input type="text" id="description" ng-model="project.description" ng-value="project.Description"/>
         <br>
-        <label for="projectLeader"><b>LeadId</b>({{project.leadId}}) </label>
-        <select  id="projectLeader" ng-model="project.leadId">
-            <option  value="{{user.Id}}" ng-repeat="user in users">{{user.Username}}</option>
-        </select>
+
+        <label for="projectLeader"><b>LeadId</b> (current ID: {{project.Lead.Id}})</label>
+        <input type="text" id="projectLeader" ng-model="project.LeadId" ng-value="project.Lead.Username"/>
         <br>
-        <label for="priorities">Priorities (separated by comma)</label>
-        <input type="text" id="priorities" ng-model="project.priorities" />
+
+        <label for="labels">Labels: </label>
+        <p id="labels" ng-repeat="label in project.Labels">{{label.Name}}, </p>
         <br>
-        <button type="button" ng-click="addProject(project)">Add Project</button>
+
+        <label for="priorities">Priorities: </label>
+        <p id="priorities" ng-repeat="priority in project.Priorities">{{priority.Name}}, </p>
+        <br>
     </form>
 </div>

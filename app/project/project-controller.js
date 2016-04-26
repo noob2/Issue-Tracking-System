@@ -27,6 +27,11 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
             controller: 'projectsController',
             resolve: routeChecks.authenticated
         });
+        $routeProvider.when('/projects/:id/edit', {
+            templateUrl: 'app/project/templates/editProject.html',
+            controller: 'projectsController',
+            resolve: routeChecks.authenticated
+        });
     }])
 
     .controller('projectsController', [
@@ -42,9 +47,6 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
                 projectFactory.allProjects()
                     .then(function (projects) {
                         $scope.projects = projects;
-                        //Notification.success('all projects loaded!');
-                    }, function (err) {
-                       // Notification.error('unable to load all projects' + err);
                     })
                     .finally(function () {
                         $scope.loading = true;
@@ -52,7 +54,6 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
             }
 
             else if ($location.path() == '/projects/add') {
-
                 userFactory.getAllUsers()
                     .then(function (allUsers) {
                         $scope.users = allUsers;
@@ -62,33 +63,52 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
                 $scope.addProject = function (project) {
                     projectFactory.addProject(project)
                         .then(function (response) {
-                            //Notification.success('you have successfully added an project in !');
-                            $route.reload();
-                        }, function (err) {
-                            //Notification.error(err.data.Message);
-                            console.log(err)
-                        }).finally(function () {
-
-                    })
+                            $location.path('/projects');
+                        });
                 };
             }
 
-            else if ($location.path().match('projects\/[0-9]+')) {
+            else if ($location.path().match('projects\/[0-9]+$')) {
                 projectFactory.getProject($routeParams.id)
                     .then(function (project) {
                         $scope.project = project;
-
-                        userFactory.getAllUsers()
-                            .then(function (allUsers) {
-                                $scope.users = allUsers;
-                                $scope.loading = true;
-                            });
-
                     }, function (err) {
-                        console.log(err);
+                        $location.path('/projects');
                     }).finally(function () {
                     $scope.loading = true;
                 });
             }
 
+            else if ($location.path().match('projects\/[0-9]+\/edit')) {
+
+                projectFactory.getProject($routeParams.id)
+                    .then(function (project) {
+                        project.AllPriorities = "";
+                        project.Priorities.forEach(function (priority) {
+                            project.AllPriorities += priority.Name + ", ";
+                        });
+
+                        project.AllLabels = "";
+                        project.Labels.forEach(function (label) {
+                            project.AllLabels += label.Name + ", ";
+                        });
+
+                        $scope.project = project;
+                    }, function (err) {
+                        $location.path('/projects');
+                    });
+
+                userFactory.getAllUsers()
+                    .then(function (users) {
+                        $scope.users = users;
+                        $scope.editProject = function (project) {
+                            projectFactory.editProject(project)
+                                .then(function (response) {
+                                    $location.path('/projects/'+$routeParams.id);
+                                })
+                        };
+                    }).finally(function () {
+                    $scope.loading = true;
+                });
+            }
         }]);

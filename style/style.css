@@ -58,3 +58,11 @@
     border-color: gray;
     padding: 0px 10px;
 }
+
+#labels{
+    display: inline-block;
+}
+
+#priorities{
+    display: inline-block;
+}
