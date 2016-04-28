@@ -1,0 +1,33 @@
+<div ng-hide="loading">
+    <h3>LOADING . . .</h3>
+</div>
+
+<div ng-show="loading">
+    <p id="pageHeader">Edit Project</p>
+    <form ng-controller="projectsController">
+
+        <label for="name"><b>Name</b></label>
+        <input type="text" id="name" ng-model="project.Name" ng-value="project.Name"/>
+        <br>
+
+        <label for="description"><b>Description</b></label>
+        <input type="text" id="description" ng-model="project.Description" ng-value="project.Description"/>
+        <br>
+
+        <label for="projectLeader"><b>Project Leader</b></label>
+        <select  id="projectLeader" ng-model="project.Lead.Id">
+            <option  value="{{user.Id}}" ng-repeat="user in users">{{user.Username}}</option>
+        </select>
+        <br>
+
+        <label for="labels"><b>Labels</b> (comma separated) : </label>
+        <input type="text" id="labels" ng-model="project.AllLabels" ng-value="project.AllLabels"/>
+        <br>
+
+        <label for="priorities"><b>Priorities</b> (comma separated) : </label>
+        <input type="text" id="priorities" ng-model="project.AllPriorities" ng-value="project.AllPriorities"/>
+        <br>
+
+        <button class="viewButton" ng-click="editProject(project)">Edit</button>
+    </form>
+</div>
