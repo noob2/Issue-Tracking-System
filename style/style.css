@@ -61,8 +61,10 @@
 
 #labels{
     display: inline-block;
+    margin: 2px;
 }
 
 #priorities{
     display: inline-block;
+    margin: 2px;
 }

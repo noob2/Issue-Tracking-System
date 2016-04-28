@@ -8,7 +8,7 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
         '$routeParams',
         function ($http, $q, BASE_URL, $routeParams) {
             function stringifyPriorities(priorities) {
-                if(priorities === undefined){
+                if(priorities === undefined || priorities === ""){
                     return "";
                 }
 
@@ -23,7 +23,7 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
             }
 
             function stringifyLabels(labels) {
-                if(labels === undefined){
+                if(labels === undefined || labels === ""){
                     return "";
                 }
 

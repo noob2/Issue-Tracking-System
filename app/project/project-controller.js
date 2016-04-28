@@ -32,6 +32,11 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
             controller: 'projectsController',
             resolve: routeChecks.authenticated
         });
+        $routeProvider.when('/projects/:id/add-issue', {
+            templateUrl: 'app/project/templates/addIssue.html',
+            controller: 'projectsController',
+            resolve: routeChecks.authenticated
+        });
     }])
 
     .controller('projectsController', [
@@ -110,5 +115,38 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
                     }).finally(function () {
                     $scope.loading = true;
                 });
+            }
+                
+            else if ($location.path().match('projects\/[0-9]+\/add-issue')) {
+
+                // projectFactory.getProject($routeParams.id)
+                //     .then(function (project) {
+                //         project.AllPriorities = "";
+                //         project.Priorities.forEach(function (priority) {
+                //             project.AllPriorities += priority.Name + ", ";
+                //         });
+                //
+                //         project.AllLabels = "";
+                //         project.Labels.forEach(function (label) {
+                //             project.AllLabels += label.Name + ", ";
+                //         });
+                //
+                //         $scope.project = project;
+                //     }, function (err) {
+                //         $location.path('/projects');
+                //     });
+                //
+                // userFactory.getAllUsers()
+                //     .then(function (users) {
+                //         $scope.users = users;
+                //         $scope.editProject = function (project) {
+                //             projectFactory.editProject(project)
+                //                 .then(function (response) {
+                //                     $location.path('/projects/'+$routeParams.id);
+                //                 })
+                //         };
+                //     }).finally(function () {
+                //     $scope.loading = true;
+                // });
             }
         }]);
