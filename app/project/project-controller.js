@@ -44,9 +44,10 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
         'authentication',
         '$location',
         'projectFactory',
+        'issueFactory',
         'userFactory',
         '$routeParams',
-        function ($scope, authentication, $location, projectFactory, userFactory, $routeParams) {
+        function ($scope, authentication, $location, projectFactory, issueFactory, userFactory, $routeParams) {
 
             if ($location.path() == '/projects') {
                 projectFactory.allProjects()
@@ -109,44 +110,46 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
                         $scope.editProject = function (project) {
                             projectFactory.editProject(project)
                                 .then(function (response) {
-                                    $location.path('/projects/'+$routeParams.id);
+                                    $location.path('/projects/' + $routeParams.id);
                                 })
                         };
                     }).finally(function () {
                     $scope.loading = true;
                 });
             }
-                
-            else if ($location.path().match('projects\/[0-9]+\/add-issue')) {
 
-                // projectFactory.getProject($routeParams.id)
-                //     .then(function (project) {
-                //         project.AllPriorities = "";
-                //         project.Priorities.forEach(function (priority) {
-                //             project.AllPriorities += priority.Name + ", ";
-                //         });
-                //
-                //         project.AllLabels = "";
-                //         project.Labels.forEach(function (label) {
-                //             project.AllLabels += label.Name + ", ";
-                //         });
-                //
-                //         $scope.project = project;
-                //     }, function (err) {
-                //         $location.path('/projects');
-                //     });
-                //
-                // userFactory.getAllUsers()
-                //     .then(function (users) {
-                //         $scope.users = users;
-                //         $scope.editProject = function (project) {
-                //             projectFactory.editProject(project)
-                //                 .then(function (response) {
-                //                     $location.path('/projects/'+$routeParams.id);
-                //                 })
-                //         };
-                //     }).finally(function () {
-                //     $scope.loading = true;
-                // });
+            else if ($location.path().match('projects\/[0-9]+\/add-issue')) {
+                $scope.loading = true;
+
+                $scope.updatePriorities = function () {
+                    var proj = JSON.parse($scope.issue.project);
+
+                    $scope.priorities = proj.Priorities;
+
+                    $scope.AllLabels = "";
+                    proj.Labels.forEach(function (label) {
+                        $scope.AllLabels += label.Name + ", ";
+                    });
+                };
+
+                projectFactory.allProjects()
+                    .then(function (projects) {
+                        $scope.allProjects = projects;
+                    });
+
+                userFactory.getAllUsers()
+                    .then(function (users) {
+                        $scope.allUsers = users;
+                    });
+
+                $scope.createIssue = function (issue) {
+                    issueFactory.addIssue(issue)
+                        .then(function (response) {
+                            console.log(response)
+                        },function (err) {
+                            console.log(err);
+                        })
+
+                };
             }
         }]);

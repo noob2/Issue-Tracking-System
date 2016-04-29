@@ -11,7 +11,9 @@ angular.module('issueTrackingSystem', [
 
         'issueTrackingSystem.users.authentication',
         'issueTrackingSystem.users.authorisation',
-        'issueTrackingSystem.users.userFactory'
+        'issueTrackingSystem.users.userFactory',
+
+        'issueTrackingSystem.issue.issueFactory'
     ])
 
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
@@ -52,6 +54,9 @@ angular.module('issueTrackingSystem', [
                     }
                     else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.ConfirmPassword']) {
                         toastr.error(rejection.data.ModelState['model.ConfirmPassword']);
+                    }
+                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.AssigneeId']) {
+                        toastr.error(rejection.data.ModelState['model.AssigneeId']);
                     }
                     else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState[""]) {
                         toastr.error(rejection.data.ModelState[""][0]);

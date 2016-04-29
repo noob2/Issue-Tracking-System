@@ -3,7 +3,7 @@
 </div>
 
 <div ng-show="loading">
-    <p id="pageHeader">Edit Project</p>
+    <p id="pageHeader">Add Issue</p>
     <form ng-controller="projectsController">
 
         <label for="title"><b>Name</b></label>
@@ -14,20 +14,32 @@
         <input type="text" id="description" ng-model="issue.Description"/>
         <br>
 
-        <label for="projectLeader"><b>Project Leader</b></label>
-        <select  id="projectLeader" ng-model="issue.Lead.Id">
-            <option  value="{{user.Id}}" ng-repeat="user in users">{{user.Username}}</option>
+        <label for="project"><b>Project</b></label>
+        <select  id="project" ng-model="issue.project" ng-change="updatePriorities()">
+            <option  value="{{project}}" ng-repeat="project in allProjects">{{project.Name}}</option>
         </select>
         <br>
 
-        <label for="priorities"><b>Priorities</b> (comma separated) : </label>
-        <input type="text" id="priorities" ng-model="issue.PriorityId" ng-value="project.AllPriorities"/>
+        <label for="asignee"><b>Asignee</b></label>
+        <select  id="asignee" ng-model="issue.AssigneeId">
+            <option  value="{{user.Id}}" ng-repeat="user in allUsers">{{user.Username}}</option>
+        </select>
+        <br>
+
+        <label for="priority"><b>Priority</b></label>
+        <select  id="priority" ng-model="issue.PriorityId">
+            <option  value="{{priority.Id}}" ng-repeat="priority in priorities">{{priority.Name}}</option>
+        </select>
+        <br>
+
+        <label for="labels"><b>Labels</b> (comma separated) : </label>
+        <input type="text" id="labels" ng-model="issue.AllLabels" ng-value="AllLabels"/>
         <br>
 
         <label for="date"><b>DueDate</b></label>
-        <input type="text" id="date" ng-model="issue.DueDate" ng-value="project.AllPriorities"/>
+        <input type="date" id="date" ng-model="issue.DueDate" ng-value="project.AllPriorities"/>
         <br>
 
-        <button class="viewButton" ng-click="editProject(project)">Edit</button>
+        <button class="viewButton" ng-click="createIssue(issue)">Create Issue</button>
     </form>
 </div>
