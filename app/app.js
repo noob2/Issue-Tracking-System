@@ -7,13 +7,15 @@ angular.module('issueTrackingSystem', [
         'issueTrackingSystem.project.projectController',
         'issueTrackingSystem.project.projectsFactory',
 
+        'issueTrackingSystem.issue.issueController',
+        'issueTrackingSystem.issue.issueFactory',
+    
         'issueTrackingSystem.version',
 
         'issueTrackingSystem.users.authentication',
         'issueTrackingSystem.users.authorisation',
-        'issueTrackingSystem.users.userFactory',
+        'issueTrackingSystem.users.userFactory'
 
-        'issueTrackingSystem.issue.issueFactory'
     ])
 
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {

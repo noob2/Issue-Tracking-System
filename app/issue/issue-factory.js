@@ -8,19 +8,19 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
         '$routeParams',
         function ($http, $q, BASE_URL, $routeParams) {
             function stringifyLabels(labels) {
-                    if(labels === undefined || labels === ""){
-                        return "";
-                    }
-
-                    var labelsArray = labels.split(',');
-                    var labelsOutputString = "";
-                    labelsArray.forEach(function (label, i) {
-                        if (label.trim() !== "") {
-                            labelsOutputString += "&labels[" + i + "].Name=" + label.trim();
-                        }
-                    });
-                    return labelsOutputString;
+                if (labels === undefined || labels === "") {
+                    return "";
                 }
+
+                var labelsArray = labels.split(',');
+                var labelsOutputString = "";
+                labelsArray.forEach(function (label, i) {
+                    if (label.trim() !== "") {
+                        labelsOutputString += "&labels[" + i + "].Name=" + label.trim();
+                    }
+                });
+                return labelsOutputString;
+            }
 
             function addIssue(issue) {
 
@@ -29,30 +29,65 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
                 console.log(proj);
 
                 var deferred = $q.defer();
-                    var labelsData = stringifyLabels(proj.labels);
-                    var date = String(issue.DueDate).substr(0, 25);
-                    var issueData = "DueDate=" + date
-                        + "&ProjectId=" + proj.Id
-                        + "&PriorityId=" + issue.PriorityId
-                        + "&Title=" + issue.Title
-                        + "&Description=" + issue.Description
-                            + "&AssigneeId=" + issue.AssigneeId
-                        + labelsData;
+                var labelsData = stringifyLabels(issue.AllLabels);
+                var date = String(issue.DueDate).substr(0, 25);
+                var issueData = "DueDate=" + date
+                    + "&ProjectId=" + proj.Id
+                    + "&PriorityId=" + issue.PriorityId
+                    + "&Title=" + issue.Title
+                    + "&Description=" + issue.Description
+                    + "&AssigneeId=" + issue.AssigneeId
+                    + labelsData;
 
-                    $http.post(BASE_URL + 'issues', issueData, {
-                            headers: {
-                                "Authorization": "Bearer " + sessionStorage['accessToken'],
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            }
-                        })
-                        .then(function (response) {
-                            deferred.resolve(response)
-                        }, function (err) {
-                            deferred.reject(err)
-                        });
+                $http.post(BASE_URL + 'issues', issueData, {
+                        headers: {
+                            "Authorization": "Bearer " + sessionStorage['accessToken'],
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    })
+                    .then(function (response) {
+                        deferred.resolve(response)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
 
-                    return deferred.promise;
+                return deferred.promise;
             }
+
+            function getIssueById(id) {
+                var deferred = $q.defer();
+
+                $http.get(BASE_URL + 'issues/' + id, {
+                        headers: {
+                            "Authorization": "Bearer " + sessionStorage['accessToken']
+                        }
+                    })
+                    .then(function (response) {
+                        deferred.resolve(response.data)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
+
+                return deferred.promise;
+            }
+
+            function changeStatus(issueId, statusId) {
+                var deferred = $q.defer();
+
+                $http.put(BASE_URL + 'issues/' + issueId + '/changestatus?statusid=' + statusId, {
+                        headers: {
+                            "Authorization": "Bearer " + sessionStorage['accessToken']
+                        }
+                    })
+                    .then(function (response) {
+                        deferred.resolve(response.data)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
+
+                return deferred.promise;
+            }
+
             // function stringifyPriorities(priorities) {
             //     if(priorities === undefined || priorities === ""){
             //         return "";
@@ -100,22 +135,7 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
             //     return deferred.promise;
             // }
             //
-            // function getProject(id) {
-            //     var deferred = $q.defer();
             //
-            //     $http.get(BASE_URL + 'projects/' + id, {
-            //             headers: {
-            //                 "Authorization": "Bearer " + sessionStorage['accessToken']
-            //             }
-            //         })
-            //         .then(function (response) {
-            //             deferred.resolve(response.data)
-            //         }, function (err) {
-            //             deferred.reject(err)
-            //         });
-            //
-            //     return deferred.promise;
-            // }
             //
             // function addProject(project) {
             //     var deferred = $q.defer();
@@ -172,6 +192,8 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
             // }
 
             return {
-                addIssue: addIssue
+                addIssue: addIssue,
+                getIssueById: getIssueById,
+                changeStatus: changeStatus
             }
         }]);
