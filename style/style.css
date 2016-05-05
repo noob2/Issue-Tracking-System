@@ -1,18 +1,17 @@
-.menu{
+.menu {
     padding: 7px
 }
 
-.menu ul
-{
+.menu ul {
     white-space: nowrap;
     padding: 10px;
 }
 
-.menu li
-{
+.menu li {
     display: inline;
 }
-.menu a{
+
+.menu a {
     background-color: green;
     border-radius: 12px;
     border: 1px solid blue;
@@ -23,19 +22,20 @@
     font-size: 2em;
 }
 
-.menu a:hover{
+.menu a:hover {
     background-color: lightseagreen;
 }
 
-.project-header{
+.project-header {
     display: flex;
     margin: 10px;
 }
-.project-header h3{
+
+.project-header h3 {
     margin: 0 5px;
 }
 
-#addNewProject{
+#addNewProject {
     background-color: green;
     border-radius: 12px;
     border: 1px solid blue;
@@ -46,12 +46,12 @@
     font-size: 2em;
 }
 
-#pageHeader{
+#pageHeader {
     background-color: darkseagreen;
     padding: 10px;
 }
 
-.viewButton{
+.viewButton {
     background-color: lightblue;
     border-radius: 9px;
     color: whitesmoke;
@@ -59,12 +59,60 @@
     padding: 0px 10px;
 }
 
-#labels{
+#labels {
     display: inline-block;
     margin: 2px;
 }
 
-#priorities{
+#priorities {
     display: inline-block;
     margin: 2px;
+}
+
+.page-controller {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.page-controller h4 {
+    display: inline;
+    margin: 7px;
+}
+
+.page-controller a {
+    background-color: green;
+    border-radius: 12px;
+    border: 1px solid cyan;
+    margin: 0 10px;
+    padding: 7px 20px;
+    text-decoration: none;
+    color: black;
+}
+
+form {
+    margin-left: 20px;
+    display: inline-block;
+    border-bottom: 1px solid darkgray;
+}
+
+#status-controller{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 60px;
+}
+label:before {
+    content: "\a";
+    white-space: pre;
+}
+
+.comments p:first-child{
+    background-color: darkcyan;
+    padding: 10px;
+}
+.comments p:last-child{
+    border-bottom: 1px solid darkgray;
+}
+
+textarea{
+    width: 99%;
 }

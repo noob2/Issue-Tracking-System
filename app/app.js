@@ -9,7 +9,7 @@ angular.module('issueTrackingSystem', [
 
         'issueTrackingSystem.issue.issueController',
         'issueTrackingSystem.issue.issueFactory',
-    
+
         'issueTrackingSystem.version',
 
         'issueTrackingSystem.users.authentication',
@@ -31,6 +31,15 @@ angular.module('issueTrackingSystem', [
                     return response;
                 },
                 'response': function (response) {
+                    if (response.statusText === 'Created') {
+                        toastr.success(response.statusText);
+                    }
+                    if (response.data[0] && response.data[0].Id === 3 && response.data[0].Name === "InProgress") {
+                        toastr.success('status changed to "StoppedProgress"');
+                    }
+                    if (response.data[1] && response.data[1].Id === 4 && response.data[1].Name === "StoppedProgress") {
+                        toastr.success('status changed to "InProgress"');
+                    }
                     if (response.data.access_token) {
                         toastr.success('U re loged in');
                     }

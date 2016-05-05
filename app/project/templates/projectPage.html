@@ -3,11 +3,17 @@
 </div>
 
 <div ng-show="loading">
-    <form ng-controller="projectsController">
-        <p id="pageHeader">Project page</p>
+
+    <p id="pageHeader">Project page</p>
+
+    <div class="page-controller">
         <h4>{{project.Name}}</h4>
-        <button class="viewButton"><a href="#/projects/{{project.Id}}/edit">Edit</a></button>
-            <button class="viewButton"><a href="#/projects/{{project.Id}}/add-issue" id="b">Add Issue</a></button>
+        <a href="#/projects/{{project.Id}}/edit">Edit</a>
+        <a href="#/projects/{{project.Id}}/add-issue">Add Issue</a>
+    </div>
+
+    <form ng-controller="projectsController">
+
         <p>ProjectKey: {{project.ProjectKey}}</p>
 
         <label for="name"><b>Name</b></label>

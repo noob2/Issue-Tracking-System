@@ -32,24 +32,44 @@ angular.module('issueTrackingSystem.issue.issueController', ['ngRoute'])
             if ($location.path().match('issues\/[0-9]+$')) {
                 issueFactory.getIssueById($routeParams.id)
                     .then(function (issue) {
-                        $scope.issue = issue;
+                        issueFactory.getIssueComments($routeParams.id)
+                            .then(function (response) {
 
-                        var AllLabels = "";
-                        issue.Labels.forEach(function (label) {
-                            $scope.AllLabels += label.Name + ", ";
-                        });
-                        $scope.AllLabels = AllLabels;
-                        $scope.changeStatus = function(statusId) {
-                            issueFactory.changeStatus($routeParams.id,statusId)
-                                .then(function (success) {
-                                    console.log(success)
-                                })
-                        };
+                                $scope.comments = response;
 
-                        $scope.loading = true;
-                        console.log(issue)
+                                $scope.addComment = function (comment) {
+                                    issueFactory.addComment($routeParams.id, comment)
+                                        .then(function (response) {
+                                            $scope.comments = response.data;
+                                            $scope.comment = undefined;
+                                        })
+                                };
+
+                                $scope.issue = issue;
+
+                                $scope.AllLabels = "";
+                                issue.Labels.forEach(function (label) {
+                                    $scope.AllLabels += label.Name + ", ";
+                                });
+
+                                $scope.changeStatus = function (statusId) {
+                                    issueFactory.changeStatus($routeParams.id, statusId)
+                                        .then(function (success) {
+                                            if (!success[1]) {
+                                                $scope.issue.Status.Name = "Closed";
+                                            }
+                                            else if (success[0].Name === "InProgress") {
+                                                $scope.issue.Status.Name = "StoppedProgress";
+                                                console.log(success[0].Name)
+                                            }
+                                            else if (success[1].Name === "StoppedProgress") {
+                                                $scope.issue.Status.Name = "InProgress";
+                                                console.log(success[1].Name)
+                                            }
+                                        })
+                                };
+                                $scope.loading = true;
+                            });
                     })
             }
-
-
         }]);
