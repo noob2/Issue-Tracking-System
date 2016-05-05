@@ -17,6 +17,12 @@ angular.module('issueTrackingSystem.issue.issueController', ['ngRoute'])
             controller: 'issueController',
             resolve: routeChecks.authenticated
         });
+
+        $routeProvider.when('/issues/:id/edit', {
+            templateUrl: 'app/issue/templates/editIssue.html',
+            controller: 'issueController',
+            resolve: routeChecks.authenticated
+        });
     }])
 
     .controller('issueController', [
@@ -71,5 +77,28 @@ angular.module('issueTrackingSystem.issue.issueController', ['ngRoute'])
                                 $scope.loading = true;
                             });
                     })
+            }
+
+            else if ($location.path().match('issues\/[0-9]+\/edit')) {
+
+                issueFactory.getIssueById($routeParams.id)
+                    .then(function (issue) {
+                        projectFactory.getProject($routeParams.id)
+                            .then(function (project) {
+                                var date = new Date(issue.DueDate);
+
+                                issue.DueDate = date;
+
+                                $scope.issue = issue;
+
+                                $scope.issue.priorities = project.Priorities;
+
+                                $scope.editIssue = function (issue) {
+                                    console.log(issue);
+                                }
+                            });
+                    });
+
+                $scope.loading = true;
             }
         }]);
