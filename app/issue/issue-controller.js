@@ -85,6 +85,8 @@ angular.module('issueTrackingSystem.issue.issueController', ['ngRoute'])
                     .then(function (issue) {
                         projectFactory.getProject($routeParams.id)
                             .then(function (project) {
+                                $scope.allUsers = userFactory.getAllUsers();
+                                
                                 var date = new Date(issue.DueDate);
 
                                 issue.DueDate = date;
@@ -94,7 +96,10 @@ angular.module('issueTrackingSystem.issue.issueController', ['ngRoute'])
                                 $scope.issue.priorities = project.Priorities;
 
                                 $scope.editIssue = function (issue) {
-                                    console.log(issue);
+                                    issueFactory.editIssue($routeParams.id,issue)
+                                        .then(function (success) {
+                                            console.log(success);
+                                        })
                                 }
                             });
                     });

@@ -113,11 +113,33 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
                 return deferred.promise;
             }
 
+            function editIssue(issueId,issue) {
+                var deferred = $q.defer();
+                var issueData = "DueDate=" + issue.DueDate
+                    + "&PriorityId=" + issue.PriorityId
+                    + "&Title=" + issue.Title
+                    + "&Description=" + issue.Description;
+                $http.put(BASE_URL + 'issues/' + issueId,issueData, {
+                        headers: {
+                            "Authorization": "Bearer " + sessionStorage['accessToken'],
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                })
+                    .then(function (response) {
+                        deferred.resolve(response.data)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
+
+                return deferred.promise;
+            }
+
             return {
                 addIssue: addIssue,
                 addComment: addComment,
                 getIssueById: getIssueById,
                 changeStatus: changeStatus,
-                getIssueComments: getIssueComments
+                getIssueComments: getIssueComments,
+                editIssue: editIssue
             }
         }]);
