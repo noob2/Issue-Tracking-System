@@ -27,8 +27,8 @@
         <br>
 
         <label for="AssigneeId"><b>Assignee ID</b></label>
-        <select  id="AssigneeId" ng-model="project.Lead.Id">
-            <option  value="{{user.Id}}" ng-repeat="user in allUsers">{{user.Username}}</option>
+        <select  id="AssigneeId" ng-model="issue.AssigneeId">
+            <option  value="{{user.Id}}" ng-repeat="user in users">{{user.Username}}</option>
         </select>
         <br>
 

@@ -115,14 +115,33 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
 
             function editIssue(issueId,issue) {
                 var deferred = $q.defer();
-                var issueData = "DueDate=" + issue.DueDate
+                var date = String(issue.DueDate).substr(0, 25);
+                var issueData = "DueDate=" + date
                     + "&PriorityId=" + issue.PriorityId
                     + "&Title=" + issue.Title
-                    + "&Description=" + issue.Description;
+                    + "&Description=" + issue.Description
+                    + "&AssigneeId=" + issue.AssigneeId;
                 $http.put(BASE_URL + 'issues/' + issueId,issueData, {
                         headers: {
                             "Authorization": "Bearer " + sessionStorage['accessToken'],
                             'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                })
+                    .then(function (response) {
+                        deferred.resolve(response.data)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
+
+                return deferred.promise;
+            }
+
+            function getMyIssues() {
+                var deferred = $q.defer();
+
+                $http.get(BASE_URL + '/issues/me?orderBy=Project.Name desc, IssueKey&pageSize=20&pageNumber=1', {
+                        headers: {
+                            "Authorization": "Bearer " + sessionStorage['accessToken']
                         }
                 })
                     .then(function (response) {
@@ -140,6 +159,7 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
                 getIssueById: getIssueById,
                 changeStatus: changeStatus,
                 getIssueComments: getIssueComments,
-                editIssue: editIssue
+                editIssue: editIssue,
+                getMyIssues: getMyIssues
             }
         }]);

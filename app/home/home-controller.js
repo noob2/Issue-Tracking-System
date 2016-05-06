@@ -15,7 +15,8 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
         'authorisation',
         '$location',
         '$route',
-        function ($scope, authentication, authorisation, $location, $route) {
+        'issueFactory',
+        function ($scope, authentication, authorisation, $location, $route, issueFactory) {
             $scope.isSomeoneLoggedIn = authentication.isLoggedIn();
 
             $scope.login = function (user) {
@@ -37,4 +38,17 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
                             })
                     })
             };
+
+            issueFactory.getMyIssues()
+                .then(function (myIssues) {
+                    $scope.myIssues = myIssues.Issues;
+                    console.log(myIssues)
+                });
+            
+            issueFactory.getMyIssues()
+                .then(function (myIssues) {
+                    $scope.myIssues = myIssues.Issues;
+                    console.log(myIssues)
+                })
+
         }]);

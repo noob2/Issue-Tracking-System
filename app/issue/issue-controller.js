@@ -81,24 +81,28 @@ angular.module('issueTrackingSystem.issue.issueController', ['ngRoute'])
 
             else if ($location.path().match('issues\/[0-9]+\/edit')) {
 
+                userFactory.getAllUsers()
+                    .then(function (users) {
+                        $scope.users = users;
+                    }).finally(function () {
+                    $scope.loading = true;
+                });
+
                 issueFactory.getIssueById($routeParams.id)
                     .then(function (issue) {
                         projectFactory.getProject($routeParams.id)
                             .then(function (project) {
-                                $scope.allUsers = userFactory.getAllUsers();
-                                
-                                var date = new Date(issue.DueDate);
 
-                                issue.DueDate = date;
+                                issue.DueDate = new Date(issue.DueDate);
 
                                 $scope.issue = issue;
 
                                 $scope.issue.priorities = project.Priorities;
 
                                 $scope.editIssue = function (issue) {
-                                    issueFactory.editIssue($routeParams.id,issue)
+                                    issueFactory.editIssue($routeParams.id, issue)
                                         .then(function (success) {
-                                            console.log(success);
+                                            $location.path('/issues/' + $routeParams.id);
                                         })
                                 }
                             });

@@ -1,6 +1,22 @@
 <p id="pageHeader">Dashboard</p>
 <h2>Affiliated Projects</h2>
 <h3>entierly new project</h3>
-<!--<button type="button" id="addProject">Add Issue</button>-->
+<table border="1">
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Project</td>
+            <td>Due Date</td>
+        </tr>
+    </thead>
 
-<table></table>
+    <tbody ng-repeat="issue in myIssues">
+        <tr>
+            <td>{{issue.Title}}</td>
+            <td>{{issue.Description}}</td>
+            <td>{{issue.Project.Name}}</td>
+            <td>{{issue.DueDate}}</td>
+        </tr>
+    </tbody>
+</table>
