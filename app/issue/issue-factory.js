@@ -121,9 +121,10 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
                     + "&Title=" + issue.Title
                     + "&Description=" + issue.Description
                     + "&AssigneeId=" + issue.AssigneeId;
+
+                $http.defaults.headers.common.Authorization = "Bearer " + sessionStorage['accessToken'];
                 $http.put(BASE_URL + 'issues/' + issueId,issueData, {
                         headers: {
-                            "Authorization": "Bearer " + sessionStorage['accessToken'],
                             'Content-Type': 'application/x-www-form-urlencoded'
                         }
                 })
@@ -139,11 +140,22 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
             function getMyIssues() {
                 var deferred = $q.defer();
 
-                $http.get(BASE_URL + '/issues/me?orderBy=Project.Name desc, IssueKey&pageSize=20&pageNumber=1', {
-                        headers: {
-                            "Authorization": "Bearer " + sessionStorage['accessToken']
-                        }
-                })
+                $http.defaults.headers.common.Authorization = "Bearer " + sessionStorage['accessToken'];
+                $http.get(BASE_URL + '/issues/me?orderBy=Project.Name desc, IssueKey&pageSize=20&pageNumber=1', {})
+                    .then(function (response) {
+                        deferred.resolve(response.data)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
+
+                return deferred.promise;
+            }
+
+            function getProjectIssues(id) {
+                var deferred = $q.defer();
+
+                $http.defaults.headers.common.Authorization = "Bearer " + sessionStorage['accessToken'];
+                $http.get(BASE_URL + '/projects/'+id+'/issues', {})
                     .then(function (response) {
                         deferred.resolve(response.data)
                     }, function (err) {
@@ -160,6 +172,7 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
                 changeStatus: changeStatus,
                 getIssueComments: getIssueComments,
                 editIssue: editIssue,
-                getMyIssues: getMyIssues
+                getMyIssues: getMyIssues,
+                getProjectIssues: getProjectIssues
             }
         }]);

@@ -125,10 +125,24 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
                 return deferred.promise;
             }
 
+            function getMyProjects() {
+                var deferred = $q.defer();
+                
+                $http.defaults.headers.common.Authorization = "Bearer " + sessionStorage['accessToken'];
+                $http.get(BASE_URL + 'projects?filter=Lead.Id="'+sessionStorage['Id']+'"&pageSize=4&pageNumber=1', {})
+                    .then(function (response) {
+                        deferred.resolve(response)
+                    }, function (err) {
+                        deferred.reject(err)
+                    });
+                return deferred.promise;
+            }
+
             return {
                 allProjects: allProjects,
                 addProject: addProject,
                 getProject: getProject,
-                editProject: editProject
+                editProject: editProject,
+                getMyProjects: getMyProjects
             }
         }]);

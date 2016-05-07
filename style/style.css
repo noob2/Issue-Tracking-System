@@ -94,25 +94,94 @@ form {
     display: inline-block;
     border-bottom: 1px solid darkgray;
 }
+form p{
+    margin: 0;
+}
 
-#status-controller{
+#status-controller {
     display: inline-block;
     vertical-align: top;
     margin: 0 60px;
 }
+
 label:before {
     content: "\a";
     white-space: pre;
 }
 
-.comments p:first-child{
+.comments p:first-child {
     background-color: darkcyan;
     padding: 10px;
 }
-.comments p:last-child{
+
+.comments p:last-child {
     border-bottom: 1px solid darkgray;
 }
 
-textarea{
+textarea {
     width: 99%;
+}
+
+#affiliatedProjects {
+    display: inline-block;
+    white-space: nowrap;
+    padding:5px;
+    margin: 0 10px;
+    list-style: none;
+}
+
+#affiliatedProjects li {
+    margin: 4px 0;
+}
+
+#affiliatedProjects li a {
+    white-space: nowrap;
+    list-style: none;
+    text-decoration: none;
+    color: blue;
+    font-size: 1.6em;
+}
+#affiliatedProjects li a:hover {
+    background-color: chocolate;
+    border-radius: 7px;
+}
+#myProjects{
+    display: inline-block;
+    font-weight: bold;
+    float: right;
+}
+#myProjects tr{
+    border-bottom: 1px solid black;
+}
+#myProjects tbody tr:hover{
+    background-color: chocolate;
+}
+#myProjects tr td{
+    padding: 10px 2px;
+    max-width: 200px;
+}
+#myProjects tr td a{
+    text-decoration: none;
+    color: black;
+    width: 190px;
+    overflow: hidden;
+}
+.authorisationForm{
+    width:200px;
+    border: 1px solid;
+    padding: 25px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 80px auto;
+    background-color: gainsboro;
+}
+.authorisationForm button{
+    margin:5px;
+}
+.authorisationForm h2{
+    margin: 6px;
+}
+.authorisationForm input{
+    text-align: center;
+    margin: 2px;
 }

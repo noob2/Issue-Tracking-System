@@ -3,12 +3,13 @@ angular.module('issueTrackingSystem.users.authentication', ['ngRoute'])
         '$http',
         '$q',
         'BASE_URL',
-        'authorisation',
-        function ($http, $q, BASE_URL, authorisation) {
+        function ($http, $q, BASE_URL) {
 
             function loginUser(user) {
                 var deferred = $q.defer();
-                var loginUserData = "grant_type=password&username=" + user.username + "&password=" + user.password;
+                var loginUserData = "grant_type=password" +
+                    "&username=" + user.username +
+                    "&password=" + user.password;
 
                 $http.post(BASE_URL + 'api/Token', loginUserData, {
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'}

@@ -75,14 +75,28 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
             }
 
             else if ($location.path().match('projects\/[0-9]+$')) {
+
+                $scope.myUserId = sessionStorage['Id'];
+
                 projectFactory.getProject($routeParams.id)
                     .then(function (project) {
-                        $scope.project = project;
+                        issueFactory.getProjectIssues($routeParams.id)
+                            .then(function (issues) {
+
+                                $scope.project = project;
+
+                                if (issues[0]) {
+                                    $scope.projectIssues = issues;
+                                } else {
+                                    $scope.showIssuesTable = true;
+                                }
+
+                            }).finally(function () {
+                            $scope.loading = true;
+                        });
                     }, function (err) {
                         $location.path('/projects');
-                    }).finally(function () {
-                    $scope.loading = true;
-                });
+                    });
             }
 
             else if ($location.path().match('projects\/[0-9]+\/edit')) {
@@ -146,7 +160,7 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
                     issueFactory.addIssue(issue)
                         .then(function (response) {
                             console.log(response)
-                        },function (err) {
+                        }, function (err) {
                             console.log(err);
                         })
 

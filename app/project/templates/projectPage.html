@@ -5,9 +5,9 @@
 <div ng-show="loading">
 
     <p id="pageHeader">Project page</p>
+    <h4>{{project.Name}}</h4>
+    <div ng-if="project.Lead.Id == myUserId" class="page-controller">
 
-    <div class="page-controller">
-        <h4>{{project.Name}}</h4>
         <a href="#/projects/{{project.Id}}/edit">Edit</a>
         <a href="#/projects/{{project.Id}}/add-issue">Add Issue</a>
     </div>
@@ -24,7 +24,7 @@
         <input type="text" id="description" ng-model="project.description" ng-value="project.Description"/>
         <br>
 
-        <label for="projectLeader"><b>LeadId</b> (current ID: {{project.Lead.Id}})</label>
+        <label for="projectLeader"><b>Lead ID</b> (current ID: {{project.Lead.Id}})</label>
         <input type="text" id="projectLeader" ng-model="project.LeadId" ng-value="project.Lead.Username"/>
         <br>
 
@@ -36,4 +36,24 @@
         <p id="priorities" ng-repeat="priority in project.Priorities">{{priority.Name}}, </p>
         <br>
     </form>
+
+    <table id="myProjects" ng-hide="showIssuesTable">
+        <thead>
+        <tr>
+            <td>Title</td>
+            <td>Description</td>
+            <td>Due Date</td>
+            <td>Assignee</td>
+        </tr>
+        </thead>
+
+        <tbody ng-repeat="issue in projectIssues">
+        <tr>
+            <td><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
+            <td><a href="#/issues/{{issue.Id}}">{{issue.Description}}</a></td>
+            <td><a href="#/issues/{{issue.Id}}">{{issue.DueDate}}</a></td>
+            <td><a href="#/issues/{{issue.Id}}">{{issue.Project.Name}}</a></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
