@@ -6,40 +6,32 @@
     <p id="pageHeader">Add Issue</p>
     <form ng-controller="projectsController">
 
-        <label for="title"><b>Name</b></label>
+        <label for="title"><b>Title</b></label>
         <input type="text" id="title" ng-model="issue.Title"/>
-        <br>
 
         <label for="description"><b>Description</b></label>
-        <input type="text" id="description" ng-model="issue.Description"/>
-        <br>
+        <textarea id="description" ng-model="issue.Description"></textarea>
 
         <label for="project"><b>Project</b></label>
-        <select  id="project" ng-model="issue.project" ng-change="updatePriorities()">
-            <option  value="{{project}}" ng-repeat="project in allProjects">{{project.Name}}</option>
+        <select id="project" ng-model="issue.project" ng-change="updatePriorities()">
+            <option value="{{project}}" ng-repeat="project in allProjects">{{project.Name}}</option>
         </select>
-        <br>
+
+        <label ng-if="issue.project" for="priority"><b>Priority</b></label>
+        <select ng-if="issue.project" id="priority" ng-model="issue.PriorityId">
+            <option value="{{priority.Id}}" ng-repeat="priority in priorities">{{priority.Name}}</option>
+        </select>
 
         <label for="asignee"><b>Asignee</b></label>
-        <select  id="asignee" ng-model="issue.AssigneeId">
-            <option  value="{{user.Id}}" ng-repeat="user in allUsers">{{user.Username}}</option>
+        <select id="asignee" ng-model="issue.AssigneeId">
+            <option value="{{user.Id}}" ng-repeat="user in allUsers">{{user.Username}}</option>
         </select>
-        <br>
-
-        <label for="priority"><b>Priority</b></label>
-        <select  id="priority" ng-model="issue.PriorityId">
-            <option  value="{{priority.Id}}" ng-repeat="priority in priorities">{{priority.Name}}</option>
-        </select>
-        <br>
-
+        
         <label for="labels"><b>Labels</b> (comma separated) : </label>
         <input type="text" id="labels" ng-model="issue.AllLabels" ng-value="AllLabels"/>
-        <br>
 
         <label for="date"><b>DueDate</b></label>
         <input type="date" id="date" ng-model="issue.DueDate" ng-value="project.AllPriorities"/>
-        <br>
-
         <button class="viewButton" ng-click="createIssue(issue)">Create Issue</button>
     </form>
 </div>

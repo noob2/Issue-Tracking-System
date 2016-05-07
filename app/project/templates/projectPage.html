@@ -18,23 +18,18 @@
 
         <label for="name"><b>Name</b></label>
         <input type="text" id="name" ng-model="project.name" ng-value="project.Name"/>
-        <br>
 
         <label for="description"><b>Description</b></label>
         <input type="text" id="description" ng-model="project.description" ng-value="project.Description"/>
-        <br>
 
         <label for="projectLeader"><b>Lead ID</b> (current ID: {{project.Lead.Id}})</label>
         <input type="text" id="projectLeader" ng-model="project.LeadId" ng-value="project.Lead.Username"/>
-        <br>
 
         <label for="labels">Labels: </label>
         <p id="labels" ng-repeat="label in project.Labels">{{label.Name}}, </p>
-        <br>
 
         <label for="priorities">Priorities: </label>
         <p id="priorities" ng-repeat="priority in project.Priorities">{{priority.Name}}, </p>
-        <br>
     </form>
 
     <table id="myProjects" ng-hide="showIssuesTable">

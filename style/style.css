@@ -71,7 +71,6 @@
 
 .page-controller {
     display: flex;
-    margin-bottom: 10px;
 }
 
 .page-controller h4 {
@@ -79,23 +78,36 @@
     margin: 7px;
 }
 
-.page-controller a {
-    background-color: green;
-    border-radius: 12px;
-    border: 1px solid cyan;
-    margin: 0 10px;
-    padding: 7px 20px;
-    text-decoration: none;
-    color: black;
+.greenButton{
+    background-color: #339933;
+    border-radius: 6px;
+    border: none;
+    padding: 6px 13px;
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
 }
+
 
 form {
     margin-left: 20px;
     display: inline-block;
     border-bottom: 1px solid darkgray;
 }
+form input{
+    margin: 4px;
+}
+form select{
+    margin: 4px;
+}
 form p{
-    margin: 0;
+    margin: 4px;
+}
+form textarea{
+    margin: 4px;
+}
+form button{
+    display:block;
 }
 
 #status-controller {

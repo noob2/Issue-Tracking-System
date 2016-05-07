@@ -7,7 +7,7 @@
 
     <div class="page-controller">
         <h4>{{issue.IssueKey}}</h4>
-        <a href="#/issues/{{issue.Id}}/edit">Edit</a>
+        <a class="greenButton" href="#/issues/{{issue.Id}}/edit">Edit</a>
     </div>
 
     <form ng-controller="projectsController">
@@ -21,10 +21,10 @@
         <label for="assigneeId"><b>AssigneeId</b> (current ID: {{issue.Assignee.Id}})</label>
         <input type="text" id="assigneeId" ng-value="issue.Assignee.Username"/>
 
-        <label for="priorityId">PriorityId</label>
+        <label for="priorityId"><b>PriorityId</b> (current ID: {{issue.Priority.Id}})</label>
         <input type="text" id="priorityId" ng-value="issue.Priority.Name"/>
 
-        <label for="dueDate">DueDate</label>
+        <label for="dueDate"><b>DueDate</b></label>
         <input type="text" id="dueDate" ng-value="issue.DueDate"/>
 
         <p>Author: {{issue.Author.Username}}</p>
@@ -36,13 +36,13 @@
     <div id="status-controller" ng-if="issue.Status.Name !== 'Closed'">
         <p>Avaiable Statuses: </p>
         <p>-----Closed
-            <button ng-click="changeStatus(1)">Change</button>
+            <button class="greenButton" ng-click="changeStatus(1)">Change</button>
         </p>
         <p ng-if="issue.Status.Name !== 'StoppedProgress'">-----StoppedProgress
-            <button ng-click="changeStatus(4)">Change</button>
+            <button class="greenButton" ng-click="changeStatus(4)">Change</button>
         </p>
         <p ng-if="issue.Status.Name !== 'InProgress'">-----InProgress
-            <button ng-click="changeStatus(3)">Change</button>
+            <button class="greenButton" ng-click="changeStatus(3)">Change</button>
         </p>
     </div>
 
@@ -54,6 +54,6 @@
     <div class="add-comment" >
         <label for="text"><b>Text: </b></label>
         <textarea id="text" ng-model="comment"></textarea>
-        <button ng-click="addComment(comment)">Add Coment</button>
+        <button class="greenButton" ng-click="addComment(comment)">Add Coment</button>
     </div>
 </div>
