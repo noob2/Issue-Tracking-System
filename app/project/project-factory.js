@@ -78,7 +78,7 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
                 var labelsData = stringifyLabels(project.labels);
                 
                 var projectData = "Description=" + project.description
-                    + "&LeadId=" + project.leadId
+                    + "&LeadId=" + project.Lead.Id
                     + "&Name=" + project.name
                     + "&projectKey=" + project.projectKey
                     + prioritiesData
@@ -100,6 +100,7 @@ angular.module('issueTrackingSystem.project.projectsFactory', ['ngRoute'])
             }
             
             function editProject(project) {
+                console.log(project)
                 var deferred = $q.defer();
                 var prioritiesData = stringifyPriorities(project.AllPriorities);
                 var labelsData = stringifyLabels(project.AllLabels);

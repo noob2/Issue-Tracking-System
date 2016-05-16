@@ -8,8 +8,8 @@
     <h4>{{project.Name}}</h4>
     <div ng-if="project.Lead.Id == myUserId" class="page-controller">
 
-        <a href="#/projects/{{project.Id}}/edit">Edit</a>
-        <a href="#/projects/{{project.Id}}/add-issue">Add Issue</a>
+        <a class="greenButton" href="#/projects/{{project.Id}}/edit">Edit</a>
+        <a class="greenButton" href="#/projects/{{project.Id}}/add-issue">Add Issue</a>
     </div>
 
     <form ng-controller="projectsController">

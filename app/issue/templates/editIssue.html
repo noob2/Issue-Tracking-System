@@ -10,27 +10,24 @@
 
         <label for="title"><b>Title</b></label>
         <input type="text" id="title" ng-model="issue.Title" ng-value="issue.Title"/>
-        <br>
 
         <label for="description"><b>Description</b></label>
         <input type="text" id="description" ng-model="issue.Description" ng-value="issue.Description"/>
-        <br>
 
         <label for="dueDate"><b>Due Date</b></label>
         <input type="date" id="dueDate" ng-model="issue.DueDate" ng-value="issue.DueDate"/>
-        <br>
 
         <label for="priorities"><b>Priorities</b></label>
-        <select  id="priorities" ng-model="issue.PriorityId">
-            <option ng-value="priority.Id" ng-repeat="priority in issue.priorities">{{priority.Name}}</option>
+        <select id="priorities"
+                ng-options="priority.Name for priority in issue.priorities"
+                ng-model="issue.Priority">
         </select>
-        <br>
 
         <label for="AssigneeId"><b>Assignee ID</b></label>
-        <select  id="AssigneeId" ng-model="issue.AssigneeId">
-            <option  value="{{user.Id}}" ng-repeat="user in users">{{user.Username}}</option>
+        <select id="AssigneeId"
+                ng-options="user.Username for user in users"
+                ng-model="issue.Assignee">
         </select>
-        <br>
 
         <button class="viewButton" ng-click="editIssue(issue)">Edit</button>
     </form>

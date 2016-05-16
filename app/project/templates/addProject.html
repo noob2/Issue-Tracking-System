@@ -7,24 +7,25 @@
     <form>
         <label for="name">Name</label>
         <input type="text" id="name" ng-model="project.name" required/>
-        <br>
+
         <label for="description">Description</label>
         <input type="text" id="description" ng-model="project.description" required/>
-        <br>
+
         <label for="projectKey">ProjectKey</label>
         <input type="text" id="projectKey" ng-model="project.projectKey" required/>
-        <br>
+
         <label for="projectLeader">projectLeader</label>
-        <select  id="projectLeader" ng-model="project.leadId">
-            <option  value="{{user.Id}}" ng-repeat="user in users">{{user.Username}}</option>
+        <select id="projectLeader"
+                ng-options="user.Username for user in users"
+                ng-model="project.Lead">
         </select>
-        <br>
+
         <label for="priorities">Priorities (separated by comma)</label>
         <input type="text" id="priorities" ng-model="project.priorities" />
-        <br>
+
         <label for="labels">Labels (separated by comma)</label>
         <input type="text" id="labels" ng-model="project.labels" />
-        <br>
+
         <button type="button" ng-click="addProject(project)">Add Project</button>
     </form>
 </div>

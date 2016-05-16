@@ -1,199 +1,210 @@
 .menu {
-    padding: 7px
+  padding: 7px;
 }
-
 .menu ul {
-    white-space: nowrap;
-    padding: 10px;
+  white-space: nowrap;
+  padding: 10px;
 }
-
 .menu li {
-    display: inline;
+  display: inline;
 }
-
 .menu a {
-    background-color: green;
-    border-radius: 12px;
-    border: 1px solid blue;
-    padding: 15px;
-    margin: 0 10px;
-    text-decoration: none;
-    color: black;
-    font-size: 2em;
+  background-color: green;
+  border-radius: 12px;
+  border: 1px solid blue;
+  padding: 15px;
+  margin: 0 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 2em;
 }
-
 .menu a:hover {
-    background-color: lightseagreen;
+  background-color: lightseagreen;
 }
 
 .project-header {
-    display: flex;
-    margin: 10px;
+  display: flex;
+  margin: 10px;
 }
-
 .project-header h3 {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 #addNewProject {
-    background-color: green;
-    border-radius: 12px;
-    border: 1px solid blue;
-    padding: 15px;
-    margin: 0 10px;
-    text-decoration: none;
-    color: black;
-    font-size: 2em;
+  background-color: green;
+  border-radius: 12px;
+  border: 1px solid blue;
+  padding: 15px;
+  margin: 0 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 2em;
 }
 
 #pageHeader {
-    background-color: darkseagreen;
-    padding: 10px;
+  background-color: darkseagreen;
+  padding: 10px;
 }
 
 .viewButton {
-    background-color: lightblue;
-    border-radius: 9px;
-    color: whitesmoke;
-    border-color: gray;
-    padding: 0px 10px;
+  background-color: lightblue;
+  border-radius: 9px;
+  color: whitesmoke;
+  border-color: gray;
+  padding: 0px 10px;
 }
 
 #labels {
-    display: inline-block;
-    margin: 2px;
+  display: inline-block;
+  margin: 2px;
 }
 
 #priorities {
-    display: inline-block;
-    margin: 2px;
+  display: inline-block;
+  margin: 2px;
 }
 
 .page-controller {
-    display: flex;
+  display: flex;
 }
-
 .page-controller h4 {
-    display: inline;
-    margin: 7px;
+  display: inline;
+  margin: 7px;
 }
 
-.greenButton{
-    background-color: #339933;
-    border-radius: 6px;
-    border: none;
-    padding: 6px 13px;
-    color: white;
-    font-weight: bold;
-    margin-left: 10px;
+.greenButton {
+  background-color: #339933;
+  border-radius: 6px;
+  border: none;
+  padding: 6px 13px;
+  color: white;
+  font-weight: bold;
+  margin-left: 10px;
+  text-decoration: none;
 }
-
 
 form {
-    margin-left: 20px;
-    display: inline-block;
-    border-bottom: 1px solid darkgray;
+  margin-left: 20px;
+  display: inline-block;
+  border-bottom: 1px solid darkgray;
 }
-form input{
-    margin: 4px;
+
+form input {
+  margin: 4px;
 }
-form select{
-    margin: 4px;
+
+form select {
+  margin: 4px;
 }
-form p{
-    margin: 4px;
+
+form p {
+  margin: 4px;
 }
-form textarea{
-    margin: 4px;
+
+form textarea {
+  margin: 4px;
 }
-form button{
-    display:block;
+
+form button {
+  display: block;
 }
 
 #status-controller {
-    display: inline-block;
-    vertical-align: top;
-    margin: 0 60px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 60px;
 }
 
 label:before {
-    content: "\a";
-    white-space: pre;
+  content: "\a";
+  white-space: pre;
 }
 
 .comments p:first-child {
-    background-color: darkcyan;
-    padding: 10px;
+  background-color: darkcyan;
+  padding: 10px;
 }
 
 .comments p:last-child {
-    border-bottom: 1px solid darkgray;
+  border-bottom: 1px solid darkgray;
 }
 
 textarea {
-    width: 99%;
+  width: 99%;
 }
 
 #affiliatedProjects {
-    display: inline-block;
-    white-space: nowrap;
-    padding:5px;
-    margin: 0 10px;
-    list-style: none;
+  display: inline-block;
+  white-space: nowrap;
+  padding: 5px;
+  margin: 0 10px;
+  list-style: none;
 }
 
 #affiliatedProjects li {
-    margin: 4px 0;
+  margin: 4px 0;
 }
 
 #affiliatedProjects li a {
-    white-space: nowrap;
-    list-style: none;
-    text-decoration: none;
-    color: blue;
-    font-size: 1.6em;
+  white-space: nowrap;
+  list-style: none;
+  text-decoration: none;
+  color: blue;
+  font-size: 1.6em;
 }
+
 #affiliatedProjects li a:hover {
-    background-color: chocolate;
-    border-radius: 7px;
+  background-color: chocolate;
+  border-radius: 7px;
 }
-#myProjects{
-    display: inline-block;
-    font-weight: bold;
-    float: right;
+
+#myProjects {
+  display: inline-block;
+  font-weight: bold;
+  float: right;
 }
-#myProjects tr{
-    border-bottom: 1px solid black;
+
+#myProjects tr {
+  border-bottom: 1px solid black;
 }
-#myProjects tbody tr:hover{
-    background-color: chocolate;
+
+#myProjects tbody tr:hover {
+  background-color: chocolate;
 }
-#myProjects tr td{
-    padding: 10px 2px;
-    max-width: 200px;
+
+#myProjects tr td {
+  padding: 10px 2px;
+  max-width: 200px;
 }
-#myProjects tr td a{
-    text-decoration: none;
-    color: black;
-    width: 190px;
-    overflow: hidden;
+
+#myProjects tr td a {
+  text-decoration: none;
+  color: black;
+  width: 190px;
+  overflow: hidden;
 }
-.authorisationForm{
-    width:200px;
-    border: 1px solid;
-    padding: 25px;
-    text-align: center;
-    border-radius: 4px;
-    margin: 80px auto;
-    background-color: gainsboro;
+
+.authorisationForm {
+  width: 200px;
+  border: 1px solid;
+  padding: 25px;
+  text-align: center;
+  border-radius: 4px;
+  margin: 80px auto;
+  background-color: gainsboro;
 }
-.authorisationForm button{
-    margin:5px;
+
+.authorisationForm button {
+  margin: 5px;
 }
-.authorisationForm h2{
-    margin: 6px;
+
+.authorisationForm h2 {
+  margin: 6px;
 }
-.authorisationForm input{
-    text-align: center;
-    margin: 2px;
+
+.authorisationForm input {
+  text-align: center;
+  margin: 2px;
 }
+
+/*# sourceMappingURL=style.css.map */

@@ -13,23 +13,25 @@
         <textarea id="description" ng-model="issue.Description"></textarea>
 
         <label for="project"><b>Project</b></label>
-        <select id="project" ng-model="issue.project" ng-change="updatePriorities()">
-            <option value="{{project}}" ng-repeat="project in allProjects">{{project.Name}}</option>
+        <select id="project"
+                ng-options="currentProject.Name for currentProject in allProjects"
+                ng-model="issue.project"
+                ng-change="updateProject()">
         </select>
 
         <label ng-if="issue.project" for="priority"><b>Priority</b></label>
         <select ng-if="issue.project" id="priority" ng-model="issue.PriorityId">
-            <option value="{{priority.Id}}" ng-repeat="priority in priorities">{{priority.Name}}</option>
+            <option ng-repeat="priority in priorities" value="{{priority.Id}}" >{{priority.Name}}</option>
         </select>
 
         <label for="asignee"><b>Asignee</b></label>
-        <select id="asignee" ng-model="issue.AssigneeId">
-            <option value="{{user.Id}}" ng-repeat="user in allUsers">{{user.Username}}</option>
+        <select id="asignee"
+                ng-options="user.Username for user in allUsers"
+                ng-model="issue.user">
         </select>
         
         <label for="labels"><b>Labels</b> (comma separated) : </label>
-        <input type="text" id="labels" ng-model="issue.AllLabels" ng-value="AllLabels"/>
-
+        <input type="text" id="labels" ng-model="issue.AllLabels" ng-value="issue.AllLabels"/>
         <label for="date"><b>DueDate</b></label>
         <input type="date" id="date" ng-model="issue.DueDate" ng-value="project.AllPriorities"/>
         <button class="viewButton" ng-click="createIssue(issue)">Create Issue</button>

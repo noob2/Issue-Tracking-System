@@ -133,37 +133,35 @@ angular.module('issueTrackingSystem.project.projectController', ['ngRoute'])
             }
 
             else if ($location.path().match('projects\/[0-9]+\/add-issue')) {
-                $scope.loading = true;
-
-                $scope.updatePriorities = function () {
-                    var proj = JSON.parse($scope.issue.project);
-
-                    $scope.priorities = proj.Priorities;
-
-                    $scope.AllLabels = "";
-                    proj.Labels.forEach(function (label) {
-                        $scope.AllLabels += label.Name + ", ";
-                    });
-                };
-
                 projectFactory.allProjects()
                     .then(function (projects) {
-                        $scope.allProjects = projects;
-                    });
+                        userFactory.getAllUsers()
+                            .then(function (users) {
+                                $scope.allProjects = projects;
+                                $scope.allUsers = users;
 
-                userFactory.getAllUsers()
-                    .then(function (users) {
-                        $scope.allUsers = users;
-                    });
+                                $scope.updateProject = function () {
+                                    $scope.priorities = $scope.issue.project.Priorities;
 
-                $scope.createIssue = function (issue) {
-                    issueFactory.addIssue(issue)
-                        .then(function (response) {
-                            console.log(response)
-                        }, function (err) {
-                            console.log(err);
-                        })
+                                    var labelsSeparatedByComma = "";
+                                    $scope.issue.project.Labels.forEach(function (label) {
+                                        labelsSeparatedByComma += label.Name + ", ";
+                                    });
+                                    $scope.issue.AllLabels = labelsSeparatedByComma;
+                                };
 
-                };
+                                $scope.createIssue = function (issue) {
+                                    issueFactory.addIssue(issue)
+                                        .then(function (response) {
+                                            console.log(response)
+                                        }, function (err) {
+                                            console.log(err);
+                                        })
+
+                                };
+                            });
+                    }).finally(function () {
+                    $scope.loading = true;
+                });
             }
         }]);

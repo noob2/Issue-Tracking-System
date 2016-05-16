@@ -23,18 +23,17 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
             }
 
             function addIssue(issue) {
-
-                var proj = JSON.parse(issue.project);
-
+                console.log(issue)
                 var deferred = $q.defer();
                 var labelsData = stringifyLabels(issue.AllLabels);
+                console.log(labelsData);
                 var date = String(issue.DueDate).substr(0, 25);
                 var issueData = "DueDate=" + date
-                    + "&ProjectId=" + proj.Id
+                    + "&ProjectId=" + issue.project.Id
                     + "&PriorityId=" + issue.PriorityId
                     + "&Title=" + issue.Title
                     + "&Description=" + issue.Description
-                    + "&AssigneeId=" + issue.AssigneeId
+                    + "&AssigneeId=" + issue.user.Id
                     + labelsData;
 
                 $http.post(BASE_URL + 'issues', issueData, {
@@ -117,10 +116,10 @@ angular.module('issueTrackingSystem.issue.issueFactory', ['ngRoute'])
                 var deferred = $q.defer();
                 var date = String(issue.DueDate).substr(0, 25);
                 var issueData = "DueDate=" + date
-                    + "&PriorityId=" + issue.PriorityId
+                    + "&PriorityId=" + issue.Priority.Id
                     + "&Title=" + issue.Title
                     + "&Description=" + issue.Description
-                    + "&AssigneeId=" + issue.AssigneeId;
+                    + "&AssigneeId=" + issue.Assignee.Id;
 
                 $http.defaults.headers.common.Authorization = "Bearer " + sessionStorage['accessToken'];
                 $http.put(BASE_URL + 'issues/' + issueId,issueData, {
