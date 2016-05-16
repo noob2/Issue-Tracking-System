@@ -4,7 +4,8 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
-            templateUrl: 'app/home/home.html',
+            
+            templateUrl: 'app/home/templates/home.html',
             controller: 'HomeView'
         });
     }])

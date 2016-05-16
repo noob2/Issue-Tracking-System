@@ -1,33 +1,30 @@
 'use strict';
 
 angular.module('issueTrackingSystem', [
-        'ngRoute',
-        'issueTrackingSystem.home',
+    'ngRoute',
+    'issueTrackingSystem.home',
 
-        'issueTrackingSystem.project.projectController',
-        'issueTrackingSystem.project.projectsFactory',
+    'issueTrackingSystem.project.projectController',
+    'issueTrackingSystem.project.projectsFactory',
 
-        'issueTrackingSystem.issue.issueController',
-        'issueTrackingSystem.issue.issueFactory',
+    'issueTrackingSystem.issue.issueController',
+    'issueTrackingSystem.issue.issueFactory',
 
-        'issueTrackingSystem.version',
+    'issueTrackingSystem.version',
 
-        'issueTrackingSystem.users.authentication',
-        'issueTrackingSystem.users.authorisation',
-        'issueTrackingSystem.users.userFactory'
+    'issueTrackingSystem.users.authentication',
+    'issueTrackingSystem.users.authorisation',
+    'issueTrackingSystem.users.userFactory',
 
-    ])
-
+    'issueTrackingSystem.profile.profileController',
+    'issueTrackingSystem.user.logoutController'
+])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.otherwise({redirectTo: '/'});
 
         $httpProvider.interceptors.push(['$q', 'toastr', function ($q, toastr) {
             return {
                 'request': function (response) {
-                    //console.log(response);
-                    //     if(response.statusText && response.statusText === 'OK'){
-                    //     toastr.error('U re loged in');
-                    // }
                     return response;
                 },
                 'response': function (response) {
@@ -48,33 +45,39 @@ angular.module('issueTrackingSystem', [
                 'requestError': function (rejection) {
                 },
                 'responseError': function (rejection) {
-                    if (rejection.data && rejection.data['error_description']) {
-                        toastr.error(rejection.data['error_description']);
-                    }
-                    else if (rejection === 'Unauthorized Access') {
+
+                    if (rejection === 'Unauthorized Access') {
                         toastr.error(rejection);
                     }
-                    else if (rejection.data && rejection.data.modelState && rejection.data.modelState['']) {
-                        toastr.error(rejection.data.modelState['']);
+                    if (rejection.data) {
+                        if (rejection.data['error_description']) {
+                            toastr.error(rejection.data['error_description']);
+                        }
+                        if (rejection.data.Message) {
+                            toastr.error(rejection.data.Message);
+                        }
+                        if (rejection.data.ModelState) {
+                            if (rejection.data.ModelState['model.Password']) {
+                                toastr.error(rejection.data.ModelState['model.Password']);
+                            }
+                            if (rejection.data.ModelState['model.Priorities']) {
+                                toastr.error(rejection.data.ModelState['model.Priorities']);
+                            }
+                            if (rejection.data.ModelState['model.ConfirmPassword']) {
+                                toastr.error(rejection.data.ModelState['model.ConfirmPassword']);
+                            }
+                            if (rejection.data.ModelState['model.NewPassword']) {
+                                toastr.error(rejection.data.ModelState['model.NewPassword']);
+                            }
+                            if (rejection.data.ModelState['model.AssigneeId']) {
+                                toastr.error(rejection.data.ModelState['model.AssigneeId']);
+                            }
+                            if(rejection.data.ModelState['']){
+                                toastr.error(rejection.data.ModelState[''][0]);
+                            }
+                        }
                     }
-                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.Password']) {
-                        toastr.error(rejection.data.ModelState['model.Password']);
-                    }
-                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.Priorities']) {
-                        toastr.error(rejection.data.ModelState['model.Priorities']);
-                    }
-                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.ConfirmPassword']) {
-                        toastr.error(rejection.data.ModelState['model.ConfirmPassword']);
-                    }
-                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState['model.AssigneeId']) {
-                        toastr.error(rejection.data.ModelState['model.AssigneeId']);
-                    }
-                    else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState[""]) {
-                        toastr.error(rejection.data.ModelState[""][0]);
-                    }
-                    else if (rejection.data && rejection.data.Message) {
-                        toastr.error(rejection.data.Message);
-                    }
+
                     console.log(rejection);
                     return $q.reject(rejection);
                 }

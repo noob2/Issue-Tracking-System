@@ -30,8 +30,9 @@ angular.module('issueTrackingSystem.users.userFactory', ['ngRoute'])
                 return deferred.promise;
             }
 
-            function editPassword(user) {
+            function changePassword(user) {
                 var deferred = $q.defer();
+                $http.defaults.headers.common.Authorization = "Bearer " + sessionStorage['accessToken'];
                 $http.post(BASE_URL + 'api/account/changePassword', user)
                     .then(function (response) {
                         deferred.resolve(response);
@@ -44,7 +45,7 @@ angular.module('issueTrackingSystem.users.userFactory', ['ngRoute'])
 
             return {
                 editUser: editUser,
-                editPassword: editPassword,
+                changePassword: changePassword,
                 getAllUsers: getAllUsers
             }
         }]);
