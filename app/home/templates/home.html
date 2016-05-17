@@ -1,0 +1,8 @@
+<div ng-if="isSomeoneLoggedIn" >
+    <div ng-include="'app/home/templates/dashboard.html'"></div>
+</div>
+
+<div ng-if="!isSomeoneLoggedIn">
+    <div ng-include="'app/home/templates/login.html'"></div>
+    <div ng-include="'app/home/templates/register.html'"></div>
+</div>
