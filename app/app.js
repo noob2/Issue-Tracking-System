@@ -16,8 +16,7 @@ angular.module('issueTrackingSystem', [
     'issueTrackingSystem.users.authorisation',
     'issueTrackingSystem.users.userFactory',
 
-    'issueTrackingSystem.profile.profileController',
-    'issueTrackingSystem.user.logoutController'
+    'issueTrackingSystem.users.userController'
 ])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.otherwise({redirectTo: '/'});
@@ -53,32 +52,18 @@ angular.module('issueTrackingSystem', [
                         if (rejection.data['error_description']) {
                             toastr.error(rejection.data['error_description']);
                         }
-                        if (rejection.data.Message) {
-                            toastr.error(rejection.data.Message);
-                        }
                         if (rejection.data.ModelState) {
-                            if (rejection.data.ModelState['model.Password']) {
-                                toastr.error(rejection.data.ModelState['model.Password']);
-                            }
-                            if (rejection.data.ModelState['model.Priorities']) {
-                                toastr.error(rejection.data.ModelState['model.Priorities']);
-                            }
-                            if (rejection.data.ModelState['model.ConfirmPassword']) {
-                                toastr.error(rejection.data.ModelState['model.ConfirmPassword']);
-                            }
-                            if (rejection.data.ModelState['model.NewPassword']) {
-                                toastr.error(rejection.data.ModelState['model.NewPassword']);
-                            }
-                            if (rejection.data.ModelState['model.AssigneeId']) {
-                                toastr.error(rejection.data.ModelState['model.AssigneeId']);
-                            }
-                            if(rejection.data.ModelState['']){
+                            Object.keys(rejection.data.ModelState).forEach(function (key) {
+                                toastr.error(rejection.data.ModelState[key]);
+                            });
+                            if (rejection.data.ModelState['']) {
                                 toastr.error(rejection.data.ModelState[''][0]);
                             }
+                        } else if (rejection.data.Message) {
+                            toastr.error(rejection.data.Message);
+                            console.log(rejection.data.Message)
                         }
                     }
-
-                    console.log(rejection);
                     return $q.reject(rejection);
                 }
             }
