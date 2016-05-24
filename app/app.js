@@ -10,8 +10,6 @@ angular.module('issueTrackingSystem', [
     'issueTrackingSystem.issue.issueController',
     'issueTrackingSystem.issue.issueFactory',
 
-    'issueTrackingSystem.version',
-
     'issueTrackingSystem.users.authentication',
     'issueTrackingSystem.users.authorisation',
     'issueTrackingSystem.users.userFactory',

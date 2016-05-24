@@ -47,7 +47,6 @@ angular.module('issueTrackingSystem.home', ['ngRoute'])
                             authorisation.getThisUser()
                                 .then(function (user) {
                                     sessionStorage.setItem('Id', user.data.Id);
-                                    //sessionStorage.setItem('accessToken', user.data.Username);
                                     sessionStorage.setItem('isAdmin', user.data.isAdmin);
                                 });
 
